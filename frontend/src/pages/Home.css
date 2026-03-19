@@ -1,0 +1,12 @@
+.home-page {
+  background: #f9fafb;
+}
+
+.home-page .home-hero {
+  isolation: isolate;
+}
+
+.home-page .home-cards {
+  position: relative;
+  z-index: 1;
+}

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import logoGms from '../assets/gms.jpeg';
 import logoEtc from '../assets/etc.jpeg';
 import logoAcademy from '../assets/academy.jpg';
+import './Home.css';
 
 const cards = [
   {
@@ -32,9 +33,9 @@ const cards = [
 
 export default function Home() {
   return (
-    <div className="min-h-[calc(100vh-180px)]">
+    <div className="home-page min-h-[calc(100vh-180px)]">
       {/* Hero */}
-      <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
+      <section className="home-hero relative py-12 sm:py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
         <div className="container relative">
           <p className="inline-flex items-center rounded-full bg-white/80 px-4 py-1.5 text-xs sm:text-sm font-medium text-primary shadow-sm ring-1 ring-primary/10 mb-4">
@@ -51,7 +52,7 @@ export default function Home() {
       </section>
 
       {/* Cards */}
-      <section className="container pb-8">
+      <section className="home-cards container pb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {cards.map((card) => (
             <Link

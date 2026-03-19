@@ -1,5 +1,6 @@
 import ContactBlock from '../components/ContactBlock';
 import logoEtc from '../assets/etc.jpeg';
+import './Classes.css';
 
 const classesContact = {
   call: '+91 8055314123',
@@ -36,13 +37,13 @@ const whoItsFor = [
 
 export default function Classes() {
   return (
-    <div className="page">
-      <div className="container">
-        <img src={logoEtc} alt="Expert Tution Center" style={styles.logo} />
-        <h1 style={styles.title}>Expert Tution Center</h1>
-        <p style={styles.tagline}>The Fun Way to Learn</p>
+    <div className="classes-page page">
+      <div className="container classes-container">
+        <img src={logoEtc} alt="Expert Tution Center" className="classes-logo" />
+        <h1 className="classes-title">Expert Tution Center</h1>
+        <p className="classes-tagline">The Fun Way to Learn</p>
 
-        <section style={styles.section}>
+        <section className="classes-section">
           <p>
             Expert Tution Center is your one stop solution for all your tuition needs.
             Learning is made fun using intuitive teaching techniques so that your child can
@@ -51,7 +52,7 @@ export default function Classes() {
           </p>
         </section>
 
-        <section style={styles.section}>
+        <section className="classes-section">
           <h2>Why Expert Tution Center</h2>
           <p>
             Every student wants to pass their exams, and while at it, get excellent grades.
@@ -65,18 +66,18 @@ export default function Classes() {
           </p>
         </section>
 
-        <section style={styles.section}>
+        <section className="classes-section">
           <h2>What We Offer</h2>
-          <ul style={styles.featureList}>
+          <ul className="classes-feature-list">
             {features.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
         </section>
 
-        <section style={styles.section}>
+        <section className="classes-section">
           <h2>Who It's For</h2>
-          <ul style={styles.featureList}>
+          <ul className="classes-feature-list">
             {whoItsFor.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
@@ -89,26 +90,3 @@ export default function Classes() {
   );
 }
 
-const styles = {
-  logo: {
-    maxWidth: '200px',
-    height: 'auto',
-    marginBottom: '1rem',
-    display: 'block',
-  },
-  title: {
-    marginBottom: '0.25rem',
-  },
-  tagline: {
-    fontSize: '1.25rem',
-    color: 'var(--color-text-muted)',
-    marginTop: 0,
-    marginBottom: '1.5rem',
-  },
-  section: {
-    marginBottom: '2rem',
-  },
-  featureList: {
-    paddingLeft: '1.5rem',
-  },
-};

@@ -1,0 +1,33 @@
+.classes-page {
+  background: #f9fafb;
+}
+
+.classes-page .classes-container {
+  max-width: 72rem;
+}
+
+.classes-page .classes-logo {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.classes-page .classes-title {
+  margin-bottom: 0.25rem;
+}
+
+.classes-page .classes-tagline {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.classes-page .classes-section {
+  margin-bottom: 2rem;
+}
+
+.classes-page .classes-feature-list {
+  padding-left: 1.5rem;
+}
