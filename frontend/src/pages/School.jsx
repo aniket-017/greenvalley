@@ -7,12 +7,26 @@ const activityImagesMap = import.meta.glob("../assets/activities/*.{png,jpg,jpeg
   import: "default",
 });
 
+const newspaperImagesMap = import.meta.glob("../assets/newspaper/*.{png,jpg,jpeg,webp,gif}", {
+  eager: true,
+  import: "default",
+});
+
 const activityImages = Object.entries(activityImagesMap)
   .map(([path, url]) => {
     const match = path.match(/(\d+)\.[a-zA-Z0-9]+$/);
     return { url, num: match ? Number(match[1]) : Number.MAX_SAFE_INTEGER };
   })
   .sort((a, b) => a.num - b.num)
+  .map((item) => item.url);
+
+const newspaperImages = Object.entries(newspaperImagesMap)
+  .map(([path, url]) => {
+    const filename = path.split("/").pop() || "";
+    const match = filename.match(/(\d+)/);
+    return { url, num: match ? Number(match[1]) : Number.MAX_SAFE_INTEGER, filename };
+  })
+  .sort((a, b) => (a.num - b.num) || a.filename.localeCompare(b.filename))
   .map((item) => item.url);
 
 const teacherPhotosMap = import.meta.glob("../assets/teachers/*.{jpg,jpeg,png,webp,gif}", {
@@ -327,6 +341,9 @@ export default function School() {
             </li>
             <li>
               <a href="#teachers" onClick={handleSmoothAnchorClick}>Faculty</a>
+            </li>
+            <li>
+              <a href="#news" onClick={handleSmoothAnchorClick}>News</a>
             </li>
             <li>
               <a href="#contact" className="nav-cta" onClick={handleSmoothAnchorClick}>
@@ -828,6 +845,33 @@ export default function School() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* FEATURED NEWS */}
+      <section className="featured-news" id="news">
+        <div className="section-inner">
+          <div className="featured-news-head reveal">
+            <div className="section-label">Recognition</div>
+            <h2 className="section-title">
+              Featured in <em>News &amp; Media</em>
+            </h2>
+            <div className="section-line" style={{ margin: "0 auto" }} />
+          </div>
+
+          {newspaperImages.length > 0 ? (
+            <div className="news-masonry reveal">
+              {newspaperImages.map((src, index) => (
+                <figure className="news-item" key={src}>
+                  <img src={src} alt={`Featured news cutting ${index + 1}`} loading="lazy" />
+                </figure>
+              ))}
+            </div>
+          ) : (
+            <p className="featured-news-empty reveal">
+              No newspaper cuttings found yet. Add images inside `src/assets/newspaper`.
+            </p>
+          )}
         </div>
       </section>
 

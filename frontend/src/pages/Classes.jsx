@@ -23,7 +23,7 @@ export default function Classes() {
           <li><a href="#courses">Courses</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="#contact" className="nav-cta">Enroll Now</a>
+        <a href="#contact" className="classes-nav-cta">Enroll Now</a>
       </nav>
 
       <section id="hero">
@@ -38,8 +38,8 @@ export default function Classes() {
             <strong>22 Classrooms</strong> • <strong>27 Expert Teachers</strong> • <strong>Thousands of Toppers</strong>
           </p>
           <div className="hero-btns">
-            <a href="#contact" className="btn-primary">Enroll Now</a>
-            <a href="#contact" className="btn-outline">Book Free Demo</a>
+            <a href="#contact" className="classes-btn-primary">Enroll Now</a>
+            <a href="#contact" className="classes-btn-outline">Book Free Demo</a>
           </div>
           <div className="hero-stats">
             <div className="stat-item"><span className="stat-num">22</span><span className="stat-label">Smart Classrooms</span></div>
@@ -77,31 +77,40 @@ export default function Classes() {
           <span className="section-tag">We Understand</span>
           <h2 className="section-title">Struggling With Studies?</h2>
           <div className="gold-line" />
-          <p className="section-sub">You're not alone. These are common challenges, and we have the right support system.</p>
+          <p className="section-sub">You're not alone. These are common challenges, and we have the solution.</p>
         </div>
         <div className="problems-grid">
           <div className="problems-list">
             {[
-              "Memory & Retention Issues",
-              "Poor Time Management",
-              "Exam Stress & Anxiety",
-              "Low Confidence",
-              "Weak Fundamentals",
+              { icon: "🧠", title: "Memory & Retention Issues", desc: "Difficulty remembering formulas, dates, and concepts even after repeated reading." },
+              { icon: "⏱️", title: "Poor Time Management", desc: "Unable to complete syllabus on time or balance multiple subjects effectively." },
+              { icon: "😰", title: "Exam Stress & Anxiety", desc: "Nervousness before exams that affects performance despite knowing the material." },
+              { icon: "📉", title: "Low Confidence", desc: "Feeling behind peers and losing motivation to study and improve grades." },
+              { icon: "📚", title: "Weak Fundamentals", desc: "Gaps in basic concepts making it hard to understand advanced topics." },
             ].map((item) => (
-              <div className="problem-item" key={item}>
-                <div><h4>{item}</h4><p>Personal guidance and structured practice to improve results consistently.</p></div>
+              <div className="problem-item" key={item.title}>
+                <span className="problem-icon" aria-hidden="true">{item.icon}</span>
+                <div>
+                  <h4>{item.title}</h4>
+                  <p>{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
           <div className="solution-box">
-            <h3>Our Solution</h3>
-            <p>Concept-based teaching, regular revision, and personal attention for each student.</p>
+            <h3>Our Solution ✅</h3>
+            <p>
+              At Expert Tuition Center, we go beyond rote learning. We identify each student&apos;s weak spots and build
+              a solid foundation through concept-based, stress-free teaching.
+            </p>
             <ul className="solution-list">
               <li>Concept-first approach</li>
-              <li>Chapter-wise tests</li>
-              <li>Daily doubt clearing</li>
-              <li>Motivational counselling</li>
-              <li>Exam simulation practice</li>
+              <li>Chapter-wise tests &amp; regular revision</li>
+              <li>Doubt-clearing sessions every day</li>
+              <li>Motivational counselling for confidence</li>
+              <li>Structured timetable for time management</li>
+              <li>Exam simulation with MCQ practice</li>
+              <li>Personal attention from expert teachers</li>
             </ul>
           </div>
         </div>
@@ -115,9 +124,21 @@ export default function Classes() {
           <p className="section-sub">State-of-the-art infrastructure designed for the best learning experience.</p>
         </div>
         <div className="facilities-grid">
-          {["CCTV Surveillance", "Biometric Attendance", "Wi-Fi Campus", "Smart Classrooms", "Daily Online Tests", "Study Material", "Chapter-wise Tests", "MCQ Practice", "Timely Completion", "Peaceful Environment"].map((label) => (
-            <div className="facility-card" key={label}>
-              <div className="fc-label">{label}</div>
+          {[
+            { icon: "📹", label: "CCTV Surveillance" },
+            { icon: "🧍", label: "Biometric Attendance" },
+            { icon: "📶", label: "Wi-Fi Campus" },
+            { icon: "🖥️", label: "Smart Classrooms" },
+            { icon: "📝", label: "Daily Online Tests" },
+            { icon: "📚", label: "Study Material" },
+            { icon: "📊", label: "Chapter-wise Tests" },
+            { icon: "🧠", label: "MCQ Practice" },
+            { icon: "⏳", label: "Timely Completion" },
+            { icon: "🌿", label: "Peaceful Environment" },
+          ].map((item) => (
+            <div className="facility-card" key={item.label}>
+              <div className="fc-icon" aria-hidden="true">{item.icon}</div>
+              <div className="fc-label">{item.label}</div>
             </div>
           ))}
         </div>
@@ -224,8 +245,8 @@ export default function Classes() {
         <div className="gold-line" />
         <p className="section-sub">Join thousands of successful students. Book your free demo class today.</p>
         <div className="hero-btns">
-          <a href="#contact" className="btn-primary">Contact Now</a>
-          <a href="#contact" className="btn-outline">Enroll Today</a>
+          <a href="#contact" className="classes-btn-primary">Contact Now</a>
+          <a href="#contact" className="classes-btn-outline">Enroll Today</a>
         </div>
       </section>
 
