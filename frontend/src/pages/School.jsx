@@ -262,6 +262,7 @@ export default function School() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [activeTeacher, setActiveTeacher] = useState(null);
+  const [activeNewsIndex, setActiveNewsIndex] = useState(null);
 
   const totalActivities = activityImages.length;
   const canAutoPlay = totalActivities > 1;
@@ -287,7 +288,29 @@ export default function School() {
     setActiveIndex((prev) => (prev + 1) % totalActivities);
   };
 
+  const closeNewsPreview = () => setActiveNewsIndex(null);
+  const showPrevNews = () => {
+    if (activeNewsIndex === null || newspaperImages.length <= 1) return;
+    setActiveNewsIndex((prev) => (prev - 1 + newspaperImages.length) % newspaperImages.length);
+  };
+  const showNextNews = () => {
+    if (activeNewsIndex === null || newspaperImages.length <= 1) return;
+    setActiveNewsIndex((prev) => (prev + 1) % newspaperImages.length);
+  };
+
+  useEffect(() => {
+    if (activeNewsIndex === null) return;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") closeNewsPreview();
+      if (event.key === "ArrowLeft") showPrevNews();
+      if (event.key === "ArrowRight") showNextNews();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activeNewsIndex, newspaperImages.length]);
+
   const activeAlt = useMemo(() => `Activity ${activeIndex + 1}`, [activeIndex]);
+  const activeNewsImage = activeNewsIndex !== null ? newspaperImages[activeNewsIndex] : null;
   const directorImage =
     teacherPhotoByKey.AntraMaM ||
     teacherPhotoByKey.KiranMam ||
@@ -863,7 +886,14 @@ export default function School() {
             <div className="news-masonry reveal">
               {newspaperImages.map((src, index) => (
                 <figure className="news-item" key={src}>
-                  <img src={src} alt={`Featured news cutting ${index + 1}`} loading="lazy" />
+                  <button
+                    type="button"
+                    className="news-thumb-btn"
+                    onClick={() => setActiveNewsIndex(index)}
+                    aria-label={`Open featured news cutting ${index + 1}`}
+                  >
+                    <img src={src} alt={`Featured news cutting ${index + 1}`} loading="lazy" />
+                  </button>
                 </figure>
               ))}
             </div>
@@ -966,6 +996,31 @@ export default function School() {
           </div>
         </div>
       </section>
+
+      {activeNewsImage && (
+        <div className="news-lightbox" role="dialog" aria-modal="true" aria-label="Featured news image preview">
+          <button type="button" className="news-lightbox-backdrop" onClick={closeNewsPreview} aria-label="Close preview" />
+          <div className="news-lightbox-content">
+            <button type="button" className="news-lightbox-close" onClick={closeNewsPreview} aria-label="Close preview">
+              ×
+            </button>
+
+            {newspaperImages.length > 1 && (
+              <button type="button" className="news-lightbox-nav prev" onClick={showPrevNews} aria-label="Previous image">
+                ‹
+              </button>
+            )}
+
+            <img src={activeNewsImage} alt={`Featured news cutting ${activeNewsIndex + 1}`} className="news-lightbox-image" />
+
+            {newspaperImages.length > 1 && (
+              <button type="button" className="news-lightbox-nav next" onClick={showNextNews} aria-label="Next image">
+                ›
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* FOOTER */}
       <footer>
