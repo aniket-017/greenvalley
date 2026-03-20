@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import logoGms from '../assets/gms.jpeg';
-import logoEtc from '../assets/etc.jpeg';
-import logoAcademy from '../assets/academy.jpg';
+import logoGms from '../assets/gms.png';
+import logoEtc from '../assets/etc.png';
+import logoAcademy from '../assets/academy.png';
 import './Home.css';
 
 const cards = [

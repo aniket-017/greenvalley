@@ -1,4 +1,5 @@
 import "./Classes.css";
+import etc from "../assets/etc.png";
 
 export default function Classes() {
   return (
@@ -6,7 +7,7 @@ export default function Classes() {
       <nav className="etc-nav">
         <a href="#hero" className="logo">
           <img
-            src="https://www.gmsetc.in/assets/img/logo_etc.png"
+            src={etc}
             alt="Expert Tutorial Center Logo"
             style={{ height: "52px", width: "52px", objectFit: "contain", borderRadius: "8px", background: "#fff", padding: "3px" }}
           />

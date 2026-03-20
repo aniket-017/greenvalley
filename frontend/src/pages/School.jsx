@@ -29,7 +29,7 @@ const newspaperImages = Object.entries(newspaperImagesMap)
     const match = filename.match(/(\d+)/);
     return { url, num: match ? Number(match[1]) : Number.MAX_SAFE_INTEGER, filename };
   })
-  .sort((a, b) => (a.num - b.num) || a.filename.localeCompare(b.filename))
+  .sort((a, b) => a.num - b.num || a.filename.localeCompare(b.filename))
   .map((item) => item.url);
 
 const teacherPhotosMap = import.meta.glob("../assets/teachers/*.{jpg,jpeg,png,webp,gif}", {
@@ -320,13 +320,12 @@ export default function School() {
     teacherPhotoByKey["AkshitaMam-removebg-preview"] ||
     teacherPhotoByKey.AkshitaMam;
   const principalImage =
-    teacherPhotoByKey.AkshitaMam ||
-    teacherPhotoByKey.NamrataMam ||
-    teacherPhotoByKey["AntraMam-removebg-preview"];
- {/* TOP BAR */}
+    teacherPhotoByKey.AkshitaMam || teacherPhotoByKey.NamrataMam || teacherPhotoByKey["AntraMam-removebg-preview"];
+  {
+    /* TOP BAR */
+  }
   return (
     <div className="school-page">
-     
       <div className="topbar">
         <div className="topbar-inner">
           <div className="topbar-item">
@@ -357,19 +356,29 @@ export default function School() {
           </a>
           <ul className="nav-links">
             <li>
-              <a href="#about" onClick={handleSmoothAnchorClick}>About</a>
+              <a href="#about" onClick={handleSmoothAnchorClick}>
+                About
+              </a>
             </li>
             <li>
-              <a href="#vision" onClick={handleSmoothAnchorClick}>Vision &amp; Mission</a>
+              <a href="#vision" onClick={handleSmoothAnchorClick}>
+                Vision &amp; Mission
+              </a>
             </li>
             <li>
-              <a href="#messages" onClick={handleSmoothAnchorClick}>Messages</a>
+              <a href="#messages" onClick={handleSmoothAnchorClick}>
+                Messages
+              </a>
             </li>
             <li>
-              <a href="#teachers" onClick={handleSmoothAnchorClick}>Faculty</a>
+              <a href="#teachers" onClick={handleSmoothAnchorClick}>
+                Faculty
+              </a>
             </li>
             <li>
-              <a href="#news" onClick={handleSmoothAnchorClick}>News</a>
+              <a href="#news" onClick={handleSmoothAnchorClick}>
+                News
+              </a>
             </li>
             <li>
               <a href="#contact" className="nav-cta" onClick={handleSmoothAnchorClick}>
@@ -429,11 +438,7 @@ export default function School() {
                 <span className="sb-num">374+</span>
                 <span className="sb-lbl">Students</span>
               </div> */}
-              <img
-                src={building}
-                alt="Greenvalley Montessori School building"
-                className="hero-logo-img"
-              />
+              <img src={building} alt="Greenvalley Montessori School building" className="hero-logo-img" />
               {/* <div className="hero-logo-float1">
                 <span className="float-card-label">🎓 Pre-Primary</span>
                 <div className="float-card-value">2 dedicated preschool groups</div>
@@ -621,17 +626,17 @@ export default function School() {
                       mission is to create a niche where learning will not be just a series of instructions but a
                       passion, going beyond books and learning horizons.
                     </p>
-                    {/* <p style={{ marginTop: "1rem" }}>
+                    <p style={{ marginTop: "1rem" }}>
                       We are continuously working to develop an environment with a sense of discipline and good moral
                       character — where all students will inculcate values of tolerance, fair play, compassion,
                       integrity and fortitude. In Greenvalley, our teachers collaborate as family members.
-                    </p> */}
+                    </p>
                   </div>
-                 {diractor &&(
+                  {diractor && (
                     <div className="message-photo-wrap">
                       <img src={diractor} alt="Director Kunwar Dayal Singh" className="message-photo" />
                     </div>
-                 )}
+                  )}
                 </div>
                 <div className="message-quote">&quot;Be a fool for a minute rather than a whole life.&quot;</div>
               </div>
@@ -650,9 +655,8 @@ export default function School() {
                     <span className="quote-mark">"</span>
                     <p>
                       Education of the 21st century is relevant, real-life and project-based. We need to develop value
-                      education in the modern world — education that develops the head, hand and the heart. Our
-                      teachers function as facilitators who coach, prompt, mediate and help students develop their
-                      understanding.
+                      education in the modern world — education that develops the head, hand and the heart. Our teachers
+                      function as facilitators who coach, prompt, mediate and help students develop their understanding.
                     </p>
                     {/* <p style={{ marginTop: "1rem" }}>
                       In about 11 years our school, like a sapling sprouting with branches, has flourished promoting
@@ -1002,19 +1006,33 @@ export default function School() {
 
       {activeNewsImage && (
         <div className="news-lightbox" role="dialog" aria-modal="true" aria-label="Featured news image preview">
-          <button type="button" className="news-lightbox-backdrop" onClick={closeNewsPreview} aria-label="Close preview" />
+          <button
+            type="button"
+            className="news-lightbox-backdrop"
+            onClick={closeNewsPreview}
+            aria-label="Close preview"
+          />
           <div className="news-lightbox-content">
             <button type="button" className="news-lightbox-close" onClick={closeNewsPreview} aria-label="Close preview">
               ×
             </button>
 
             {newspaperImages.length > 1 && (
-              <button type="button" className="news-lightbox-nav prev" onClick={showPrevNews} aria-label="Previous image">
+              <button
+                type="button"
+                className="news-lightbox-nav prev"
+                onClick={showPrevNews}
+                aria-label="Previous image"
+              >
                 ‹
               </button>
             )}
 
-            <img src={activeNewsImage} alt={`Featured news cutting ${activeNewsIndex + 1}`} className="news-lightbox-image" />
+            <img
+              src={activeNewsImage}
+              alt={`Featured news cutting ${activeNewsIndex + 1}`}
+              className="news-lightbox-image"
+            />
 
             {newspaperImages.length > 1 && (
               <button type="button" className="news-lightbox-nav next" onClick={showNextNews} aria-label="Next image">
