@@ -24,7 +24,7 @@ npm run dev
 ```
 
 - Frontend dev server: http://localhost:3000 (proxies `/api` to backend)
-- Backend: http://localhost:5000
+- Backend: http://localhost:3691
 
 ## Production
 
@@ -40,7 +40,7 @@ npm run dev
    cd backend && npm start
    ```
 
-   Open http://localhost:5000 (or your `PORT`).
+   Open http://localhost:3691 (or your `PORT`).
 
 ## API (for future use)
 
