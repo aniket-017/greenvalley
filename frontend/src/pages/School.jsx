@@ -627,11 +627,11 @@ export default function School() {
                       mission is to create a niche where learning will not be just a series of instructions but a
                       passion, going beyond books and learning horizons.
                     </p>
-                    <p style={{ marginTop: "1rem" }}>
+                    {/* <p style={{ marginTop: "1rem" }}>
                       We are continuously working to develop an environment with a sense of discipline and good moral
                       character — where all students will inculcate values of tolerance, fair play, compassion,
                       integrity and fortitude. In Greenvalley, our teachers collaborate as family members.
-                    </p>
+                    </p> */}
                   </div>
                   {diractor && (
                     <div className="message-photo-wrap">
