@@ -253,7 +253,8 @@ export default function School() {
           }
         });
       },
-      { threshold: 0.1 },
+      // Low threshold ensures tall mobile sections still reveal.
+      { threshold: 0.01, rootMargin: "0px 0px -8% 0px" },
     );
 
     const elements = document.querySelectorAll(".reveal");
@@ -705,7 +706,7 @@ export default function School() {
                 return (
                   <div
                     key={teacher.id}
-                    className={`teacher-card ${teacher.ribbonLight ? "ribbon-light" : ""} ${isActive ? "active" : ""}`}
+                    className={`teacher-card with-photo ${teacher.ribbonLight ? "ribbon-light" : ""} ${isActive ? "active" : ""}`}
                     style={{ animationDelay: `${(i + 1) * 0.04}s` }}
                     onClick={() => setActiveTeacher(isActive ? null : teacher.id)}
                   >

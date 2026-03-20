@@ -1521,27 +1521,60 @@
     font-size: 0.84rem;
   }
 
-  .teacher-card {
-    aspect-ratio: auto;
-    min-height: 300px;
+  .teacher-card.with-photo {
+    aspect-ratio: 3 / 4;
+    min-height: 0;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(12, 38, 24, 0.14);
   }
 
-  .teacher-photo-zone {
+  .teacher-card.with-photo .teacher-photo-zone {
     position: absolute;
     inset: 0;
     z-index: 1;
   }
 
-  .teacher-photo-zone img {
+  .teacher-card.with-photo .teacher-photo-zone::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(7, 40, 26, 0.26) 0%,
+      rgba(7, 40, 26, 0.04) 45%,
+      rgba(7, 40, 26, 0.42) 100%
+    );
+  }
+
+  .teacher-card.with-photo .teacher-photo-zone img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center 14%;
   }
 
-  .teacher-ribbon,
-  .teacher-badge {
+  .teacher-card.with-photo .teacher-ribbon {
+    clip-path: none;
+    min-height: 86px;
+    padding: 14px 14px 12px;
+    background: linear-gradient(180deg, rgba(8, 34, 21, 0.22), rgba(8, 34, 21, 0.92));
+    backdrop-filter: blur(1px);
+  }
+
+  .teacher-card.with-photo .teacher-name {
+    font-size: 1.02rem;
+    margin-bottom: 2px;
+  }
+
+  .teacher-card.with-photo .teacher-subject {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+  }
+
+  .teacher-card.with-photo .teacher-ribbon,
+  .teacher-card.with-photo .teacher-badge {
     z-index: 2;
   }
 
