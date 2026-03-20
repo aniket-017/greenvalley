@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import logoGms from "../assets/gms.jpeg";
 import "./School.css";
 import building from "../assets/building/building.png";
+import diractor from "../assets/building/diractor.png";
+import principal from "../assets/building/principal.png";
 
 const activityImagesMap = import.meta.glob("../assets/activities/*.{png,jpg,jpeg,webp,gif,svg}", {
   eager: true,
@@ -625,11 +627,11 @@ export default function School() {
                       integrity and fortitude. In Greenvalley, our teachers collaborate as family members.
                     </p> */}
                   </div>
-                  {directorImage && (
+                 {diractor &&(
                     <div className="message-photo-wrap">
-                      <img src={directorImage} alt="Director Kunwar Dayal Singh" className="message-photo" />
+                      <img src={diractor} alt="Director Kunwar Dayal Singh" className="message-photo" />
                     </div>
-                  )}
+                 )}
                 </div>
                 <div className="message-quote">&quot;Be a fool for a minute rather than a whole life.&quot;</div>
               </div>
@@ -658,9 +660,9 @@ export default function School() {
                       future citizens into &quot;nation builders&quot;.
                     </p> */}
                   </div>
-                  {principalImage && (
+                  {principal && (
                     <div className="message-photo-wrap">
-                      <img src={principalImage} alt="Principal Urmila Kanwar Shekhawat" className="message-photo" />
+                      <img src={principal} alt="Principal Urmila Kanwar Shekhawat" className="message-photo" />
                     </div>
                   )}
                 </div>
