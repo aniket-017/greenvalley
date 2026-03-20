@@ -1043,7 +1043,7 @@
   overflow: hidden;
   cursor: pointer;
   /* background: #f2ede4; */
-  background: linear-gradient( #0d2e1a,#e0f3e9, #e8f5ee);
+  background: linear-gradient( #0d2e1a,#f9fafb,#ffffff, #e8f5ee);
   /* background: linear-gradient( #FF9933,#FFFFFF, #138808); */
   aspect-ratio: 3 / 4.2;
   border: 1.5px solid transparent;
