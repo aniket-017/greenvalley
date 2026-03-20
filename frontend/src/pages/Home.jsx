@@ -6,28 +6,31 @@ import './Home.css';
 
 const cards = [
   {
-    to: '/school',
+    href: '/school',
     logo: logoGms,
     alt: 'Greenvalley Montessori School',
     title: 'School',
     description: 'Greenvalley Montessori School',
     tag: 'Pre-K to Grade 10',
+    external: false,
   },
   {
-    to: '/classes',
+    href: '/classes',
     logo: logoEtc,
     alt: 'Expert Tution Center',
     title: 'Classes',
     description: 'Smart classrooms & expert faculty',
     tag: 'All Grades',
+    external: false,
   },
   {
-    to: '/test-series',
+    href: 'https://academy.gmsetc.in/',
     logo: logoAcademy,
     alt: 'Test Series',
     title: 'Test Series',
     description: 'Comprehensive exam preparation',
     tag: 'Competitive Exams',
+    external: true,
   },
 ];
 
@@ -85,37 +88,71 @@ export default function Home() {
 
           <div className="cards-grid">
             {cards.map((card, i) => (
-              <Link
-                key={card.to}
-                to={card.to}
-                className="card"
-                style={{ '--card-index': i }}
-              >
-                <div className="card-logo-wrap">
-                  <img
-                    src={card.logo}
-                    alt={card.alt}
-                    className="card-logo"
-                  />
-                </div>
+              card.external ? (
+                <a
+                  key={card.title}
+                  href={card.href}
+                  className="card"
+                  style={{ '--card-index': i }}
+                >
+                  <div className="card-logo-wrap">
+                    <img
+                      src={card.logo}
+                      alt={card.alt}
+                      className="card-logo"
+                    />
+                  </div>
 
-                <div className="card-body">
-                  <span className="card-tag">{card.tag}</span>
-                  <h3 className="card-title">{card.title}</h3>
-                  <p className="card-desc">{card.description}</p>
-                </div>
+                  <div className="card-body">
+                    <span className="card-tag">{card.tag}</span>
+                    <h3 className="card-title">{card.title}</h3>
+                    <p className="card-desc">{card.description}</p>
+                  </div>
 
-                <div className="card-footer">
-                  <span className="card-link">
-                    Learn more
-                    <svg className="card-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </span>
-                </div>
+                  <div className="card-footer">
+                    <span className="card-link">
+                      Learn more
+                      <svg className="card-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  </div>
 
-                <div className="card-shine" aria-hidden="true" />
-              </Link>
+                  <div className="card-shine" aria-hidden="true" />
+                </a>
+              ) : (
+                <Link
+                  key={card.title}
+                  to={card.href}
+                  className="card"
+                  style={{ '--card-index': i }}
+                >
+                  <div className="card-logo-wrap">
+                    <img
+                      src={card.logo}
+                      alt={card.alt}
+                      className="card-logo"
+                    />
+                  </div>
+
+                  <div className="card-body">
+                    <span className="card-tag">{card.tag}</span>
+                    <h3 className="card-title">{card.title}</h3>
+                    <p className="card-desc">{card.description}</p>
+                  </div>
+
+                  <div className="card-footer">
+                    <span className="card-link">
+                      Learn more
+                      <svg className="card-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div className="card-shine" aria-hidden="true" />
+                </Link>
+              )
             ))}
           </div>
         </div>
