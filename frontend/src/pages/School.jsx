@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import logoGms from "../assets/gms.jpeg";
+import logoGms from "../assets/gms.png";
 import "./School.css";
 import building from "../assets/building/building.png";
 import diractor from "../assets/building/diractor.png";

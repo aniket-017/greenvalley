@@ -1,4 +1,4 @@
-import logoAcademy from '../assets/academy.jpg';
+import logoAcademy from '../assets/academy.png';
 
 export default function TestSeries() {
   return (
