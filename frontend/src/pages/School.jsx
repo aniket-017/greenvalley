@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import logoGms from "../assets/gms.jpeg";
 import "./School.css";
+import building from "../assets/building/building.png";
 
 const activityImagesMap = import.meta.glob("../assets/activities/*.{png,jpg,jpeg,webp,gif,svg}", {
   eager: true,
@@ -427,7 +428,7 @@ export default function School() {
                 <span className="sb-lbl">Students</span>
               </div> */}
               <img
-                src="https://res.cloudinary.com/dokdo82g5/image/upload/v1773130073/image-removebg-preview_11_hh1c27.png"
+                src={building}
                 alt="Greenvalley Montessori School building"
                 className="hero-logo-img"
               />
