@@ -215,6 +215,18 @@ const languagesHumanitiesTeachers = (() => {
 })();
 
 export default function School() {
+  const handleSmoothAnchorClick = (event) => {
+    const href = event.currentTarget.getAttribute("href");
+    if (!href || !href.startsWith("#")) return;
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    event.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", href);
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -271,10 +283,10 @@ export default function School() {
     teacherPhotoByKey.AkshitaMam ||
     teacherPhotoByKey.NamrataMam ||
     teacherPhotoByKey["AntraMam-removebg-preview"];
-
+ {/* TOP BAR */}
   return (
     <div className="school-page">
-      {/* TOP BAR */}
+     
       <div className="topbar">
         <div className="topbar-inner">
           <div className="topbar-item">
@@ -296,7 +308,7 @@ export default function School() {
       {/* NAV */}
       <nav>
         <div className="nav-inner">
-          <a href="#home" className="logo">
+          <a href="#home" className="logo" onClick={handleSmoothAnchorClick}>
             <img src={logoGms} alt="GMS Logo" className="logo-emblem" />
             <div className="logo-text">
               <div className="name">Greenvalley Montessori</div>
@@ -305,19 +317,19 @@ export default function School() {
           </a>
           <ul className="nav-links">
             <li>
-              <a href="#about">About</a>
+              <a href="#about" onClick={handleSmoothAnchorClick}>About</a>
             </li>
             <li>
-              <a href="#vision">Vision &amp; Mission</a>
+              <a href="#vision" onClick={handleSmoothAnchorClick}>Vision &amp; Mission</a>
             </li>
             <li>
-              <a href="#messages">Messages</a>
+              <a href="#messages" onClick={handleSmoothAnchorClick}>Messages</a>
             </li>
             <li>
-              <a href="#teachers">Faculty</a>
+              <a href="#teachers" onClick={handleSmoothAnchorClick}>Faculty</a>
             </li>
             <li>
-              <a href="#contact" className="nav-cta">
+              <a href="#contact" className="nav-cta" onClick={handleSmoothAnchorClick}>
                 Contact Us
               </a>
             </li>

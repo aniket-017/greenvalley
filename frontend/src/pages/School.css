@@ -1,5 +1,19 @@
 .school-page {
   min-height: 100vh;
+  /* overflow-x: clip;
+  overflow-y: visible; */
+}
+
+
+.school-page nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 300;
+}
+
+.school-page section[id] {
+  scroll-margin-top: 110px;
 }
 
 @media (max-width: 768px) {

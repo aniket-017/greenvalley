@@ -98,7 +98,7 @@
   font-family: 'DM Sans', sans-serif;
   background: var(--cream);
   color: var(--text-dark);
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 /* Themed scrollbar styling */
