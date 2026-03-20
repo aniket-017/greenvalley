@@ -1,3 +1,4 @@
+import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoGms from '../assets/gms.png';
 import logoEtc from '../assets/etc.png';
@@ -34,7 +35,41 @@ const cards = [
   },
 ];
 
+const stats = [
+  { value: 15, suffix: '+', label: 'Years of Excellence' },
+  { value: 1200, suffix: '+', label: 'Students Enrolled' },
+  { value: 100, suffix: '%', label: 'Pass Rate' },
+];
+
 export default function Home() {
+  const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
+
+  useEffect(() => {
+    const duration = 1500;
+    const start = performance.now();
+
+    let rafId;
+
+    const tick = (currentTime) => {
+      const elapsed = currentTime - start;
+      const progress = Math.min(elapsed / duration, 1);
+
+      setAnimatedStats(
+        stats.map((stat) => Math.floor(stat.value * progress)),
+      );
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
     <div className="home-page">
       {/* Hero */}
@@ -60,20 +95,18 @@ export default function Home() {
           </p>
 
           <div className="hero-stats">
-            <div className="stat">
-              <span className="stat-number">15+</span>
-              <span className="stat-label">Years of Excellence</span>
-            </div>
-            <div className="stat-divider" />
-            <div className="stat">
-              <span className="stat-number">1200+</span>
-              <span className="stat-label">Students Enrolled</span>
-            </div>
-            <div className="stat-divider" />
-            <div className="stat">
-              <span className="stat-number">98%</span>
-              <span className="stat-label">Pass Rate</span>
-            </div>
+            {stats.map((stat, index) => (
+              <Fragment key={stat.label}>
+                <div className="stat">
+                  <span className="stat-number">
+                    {animatedStats[index]}
+                    {stat.suffix}
+                  </span>
+                  <span className="stat-label">{stat.label}</span>
+                </div>
+                {index < stats.length - 1 && <div className="stat-divider" />}
+              </Fragment>
+            ))}
           </div>
         </div>
       </section>

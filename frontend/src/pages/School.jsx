@@ -231,6 +231,13 @@ const languagesHumanitiesTeachers = (() => {
   return [...baseWithPhotos, ...newTeachers];
 })();
 
+const heroStats = [
+  { value: 374, suffix: "+", label: "Students" },
+  { value: 12, suffix: "+", label: "Classes" },
+  { value: 25, suffix: "+", label: "Faculty" },
+  { value: 14, suffix: "+", label: "Years" },
+];
+
 export default function School() {
   const handleSmoothAnchorClick = (event) => {
     const href = event.currentTarget.getAttribute("href");
@@ -267,9 +274,31 @@ export default function School() {
   const [isPaused, setIsPaused] = useState(false);
   const [activeTeacher, setActiveTeacher] = useState(null);
   const [activeNewsIndex, setActiveNewsIndex] = useState(null);
+  const [animatedHeroStats, setAnimatedHeroStats] = useState(heroStats.map(() => 0));
 
   const totalActivities = activityImages.length;
   const canAutoPlay = totalActivities > 1;
+
+  useEffect(() => {
+    const duration = 1500;
+    const start = performance.now();
+    let rafId;
+
+    const tick = (currentTime) => {
+      const elapsed = currentTime - start;
+      const progress = Math.min(elapsed / duration, 1);
+
+      setAnimatedHeroStats(heroStats.map((stat) => Math.floor(stat.value * progress)));
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    rafId = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(rafId);
+  }, []);
 
   // Auto-advance the carousel
   useEffect(() => {
@@ -414,22 +443,15 @@ export default function School() {
               </a>
             </div>
             <div className="hero-stats">
-              <div className="hero-stat">
-                <span className="num">374+</span>
-                <span className="lbl">Students</span>
-              </div>
-              <div className="hero-stat">
-                <span className="num">12+</span>
-                <span className="lbl">Classes</span>
-              </div>
-              <div className="hero-stat">
-                <span className="num">25+</span>
-                <span className="lbl">Faculty</span>
-              </div>
-              <div className="hero-stat">
-                <span className="num">14+</span>
-                <span className="lbl">Years</span>
-              </div>
+              {heroStats.map((stat, index) => (
+                <div className="hero-stat" key={stat.label}>
+                  <span className="num">
+                    {animatedHeroStats[index]}
+                    {stat.suffix}
+                  </span>
+                  <span className="lbl">{stat.label}</span>
+                </div>
+              ))}
             </div>
           </div>
           <div className="hero-visual">

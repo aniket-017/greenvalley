@@ -1,7 +1,35 @@
+import { useEffect, useState } from "react";
 import "./Classes.css";
 import etc from "../assets/etc.png";
 
 export default function Classes() {
+  const heroStats = [
+    { value: 22, suffix: "", label: "Smart Classrooms" },
+    { value: 27, suffix: "+", label: "Expert Teachers" },
+    { value: 14, suffix: "+", label: "Years Experience" },
+    { value: 95, suffix: "%", label: "Distinction 2024" },
+  ];
+  const [animatedHeroStats, setAnimatedHeroStats] = useState(heroStats.map(() => 0));
+
+  useEffect(() => {
+    const duration = 1500;
+    const start = performance.now();
+    let rafId;
+
+    const tick = (currentTime) => {
+      const elapsed = currentTime - start;
+      const progress = Math.min(elapsed / duration, 1);
+      setAnimatedHeroStats(heroStats.map((stat) => Math.floor(stat.value * progress)));
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
   return (
     <div className="classes-page">
       <nav className="etc-nav">
@@ -43,10 +71,15 @@ export default function Classes() {
             <a href="#contact" className="classes-btn-outline">Book Free Demo</a>
           </div>
           <div className="hero-stats">
-            <div className="stat-item"><span className="stat-num">22</span><span className="stat-label">Smart Classrooms</span></div>
-            <div className="stat-item"><span className="stat-num">27+</span><span className="stat-label">Expert Teachers</span></div>
-            <div className="stat-item"><span className="stat-num">14+</span><span className="stat-label">Years Experience</span></div>
-            <div className="stat-item"><span className="stat-num">95%</span><span className="stat-label">Distinction 2024</span></div>
+            {heroStats.map((stat, index) => (
+              <div className="stat-item" key={stat.label}>
+                <span className="stat-num">
+                  {animatedHeroStats[index]}
+                  {stat.suffix}
+                </span>
+                <span className="stat-label">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
