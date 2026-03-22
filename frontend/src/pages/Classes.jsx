@@ -47,7 +47,7 @@ export default function Classes() {
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#facilities">Facilities</a></li>
-          <li><a href="#teachers">Teachers</a></li>
+          {/* <li><a href="#teachers">Teachers</a></li> */}
           <li><a href="#results">Results</a></li>
           <li><a href="#courses">Courses</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -178,7 +178,7 @@ export default function Classes() {
         </div>
       </section>
 
-      <section id="teachers">
+      {/* <section id="teachers">
         <div className="center">
           <span className="section-tag">Our Team</span>
           <h2 className="section-title">Meet Our Expert Teachers</h2>
@@ -205,7 +205,7 @@ export default function Classes() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section id="results">
         <div className="center">
@@ -236,7 +236,7 @@ export default function Classes() {
         </div>
       </section>
 
-      <section id="media">
+      {/* <section id="media">
         <div className="center">
           <span className="section-tag">Recognition</span>
           <h2 className="section-title">Featured In Newspapers &amp; Media</h2>
@@ -250,9 +250,9 @@ export default function Classes() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
-      <section id="testimonials">
+      {/* <section id="testimonials">
         <div className="center">
           <span className="section-tag">Success Stories</span>
           <h2 className="section-title">What Parents &amp; Students Say</h2>
@@ -270,7 +270,7 @@ export default function Classes() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section id="cta">
         <h2 className="section-title">
@@ -289,21 +289,138 @@ export default function Classes() {
           <span className="section-tag">Get In Touch</span>
           <h2 className="section-title">Contact &amp; Inquiry</h2>
           <div className="gold-line" />
+          <p className="section-sub">
+            Visit us, call us, or fill out the form — we&apos;ll get back to you within hours.
+          </p>
         </div>
         <div className="contact-grid">
           <div className="contact-info">
             <h3>Find Us Here</h3>
-            <p>Expert Tuition Center, Near ABC Chowk, Aurangabad, Maharashtra - 431001</p>
-            <p>+91 98765 43210</p>
-            <p>Mon - Sat: 7:00 AM - 9:00 PM</p>
+            <ul className="contact-items">
+              <li className="contact-item">
+                <span className="contact-item-icon" aria-hidden="true">📍</span>
+                <div>
+                  <span className="contact-item-label">Address</span>
+                  <p className="contact-item-value">
+                    Expert Tuition Center, Near ABC Chowk, Aurangabad, Maharashtra – 431001
+                  </p>
+                </div>
+              </li>
+              <li className="contact-item">
+                <span className="contact-item-icon" aria-hidden="true">📞</span>
+                <div>
+                  <span className="contact-item-label">Phone</span>
+                  <p className="contact-item-value">
+                    <a href="tel:+919876543210">+91 98765 43210</a>
+                  </p>
+                </div>
+              </li>
+              <li className="contact-item">
+                <span className="contact-item-icon" aria-hidden="true">💬</span>
+                <div>
+                  <span className="contact-item-label">WhatsApp</span>
+                  <p className="contact-item-value">
+                    <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                      +91 98765 43210
+                    </a>
+                  </p>
+                  <span className="contact-item-hint">Message us anytime!</span>
+                </div>
+              </li>
+              <li className="contact-item">
+                <span className="contact-item-icon" aria-hidden="true">✉️</span>
+                <div>
+                  <span className="contact-item-label">Email</span>
+                  <p className="contact-item-value">
+                    <a href="mailto:contact@experttutorial.in">contact@experttutorial.in</a>
+                  </p>
+                </div>
+              </li>
+              <li className="contact-item">
+                <span className="contact-item-icon" aria-hidden="true">🕐</span>
+                <div>
+                  <span className="contact-item-label">Timings</span>
+                  <p className="contact-item-value">
+                    Mon – Sat: 7:00 AM – 9:00 PM
+                    <br />
+                    Sunday: 9:00 AM – 1:00 PM
+                  </p>
+                </div>
+              </li>
+            </ul>
+            <div className="contact-map-placeholder" role="img" aria-label="Map location placeholder">
+              <span className="contact-map-placeholder-icon" aria-hidden="true">🗺️</span>
+              <p className="contact-map-placeholder-title">Google Map</p>
+              <p className="contact-map-placeholder-text">Embed your map here — paste your Google Maps iframe in this area.</p>
+            </div>
           </div>
           <div className="inquiry-form">
             <h3>Book Your Free Demo Class</h3>
-            <div className="form-group"><label>Student's Name</label><input type="text" placeholder="Enter full name" /></div>
-            <div className="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX" /></div>
-            <div className="form-group"><label>Current Standard</label><input type="text" placeholder="8th / 9th / 10th / 11th / 12th" /></div>
-            <div className="form-group"><label>Message</label><textarea placeholder="Write your query..." /></div>
-            <button className="btn-submit" type="button">Submit Inquiry &amp; Book Free Demo</button>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="etc-student-name">Student&apos;s Name</label>
+                <input id="etc-student-name" type="text" name="studentName" autoComplete="name" placeholder="Enter full name" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="etc-parent-name">Parent&apos;s Name</label>
+                <input id="etc-parent-name" type="text" name="parentName" autoComplete="name" placeholder="Enter parent name" />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="etc-phone">Phone Number</label>
+                <input id="etc-phone" type="tel" name="phone" autoComplete="tel" placeholder="+91 XXXXX XXXXX" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="etc-whatsapp">WhatsApp Number</label>
+                <input id="etc-whatsapp" type="tel" name="whatsapp" autoComplete="tel" placeholder="+91 XXXXX XXXXX" />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="etc-standard">Current Standard</label>
+                <select id="etc-standard" name="standard" defaultValue="10th">
+                  <option value="8th">8th Standard</option>
+                  <option value="9th">9th Standard</option>
+                  <option value="10th">10th Standard (SSC)</option>
+                  <option value="11th">11th Standard</option>
+                  <option value="12th">12th Standard</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="etc-stream">Stream</label>
+                <select id="etc-stream" name="stream" defaultValue="">
+                  <option value="" disabled>
+                    Select Stream
+                  </option>
+                  <option value="science">Science</option>
+                  <option value="commerce">Commerce</option>
+                  <option value="arts">Arts / Vocational</option>
+                  <option value="general">General (8th–10th)</option>
+                </select>
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="etc-subject">Subject of Interest</label>
+              <input
+                id="etc-subject"
+                type="text"
+                name="subject"
+                placeholder="e.g. Mathematics, Science, All Subjects"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="etc-message">Message / Query</label>
+              <textarea
+                id="etc-message"
+                name="message"
+                rows={4}
+                placeholder="Write your query or anything you&apos;d like us to know..."
+              />
+            </div>
+            <button className="btn-submit" type="button">
+              Submit Inquiry &amp; Book Free Demo
+            </button>
           </div>
         </div>
       </section>
