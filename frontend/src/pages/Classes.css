@@ -1,12 +1,12 @@
 .classes-page {
-  --navy: #2f3e46;
-  --gold: #f4b400;
+  --navy: #1e2d35;
+  --gold: #e8b923;
   --white: #ffffff;
-  --light: #f5f7fa;
-  --gray: #6b7280;
-  --gold-dark: #d9a000;
+  --light: #eef1f5;
+  --gray: #5c6670;
+  --gold-dark: #c9a010;
   --navy-light: #3d5260;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   color: var(--navy);
   background: var(--white);
 }
@@ -211,25 +211,35 @@
 
 .classes-page .section-tag {
   display: inline-block;
-  background: rgba(244, 180, 0, 0.15);
-  color: var(--gold);
-  padding: 5px 16px;
-  border-radius: 50px;
+  background: linear-gradient(180deg, rgba(255, 244, 210, 0.95) 0%, rgba(250, 235, 195, 0.85) 100%);
+  color: #9a7200;
+  padding: 6px 18px;
+  border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 700;
   margin-bottom: 14px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(232, 185, 35, 0.35);
 }
 
 .classes-page .section-title {
   font-family: "Playfair Display", serif;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(1.85rem, 3.2vw, 2.65rem);
+  font-weight: 700;
   color: var(--navy);
   margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .classes-page .section-sub {
   color: var(--gray);
   margin-top: 14px;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .classes-page .gold-line {
@@ -240,7 +250,10 @@
   margin: 16px auto 30px;
 }
 
-.classes-page #about,
+.classes-page #about {
+  background: linear-gradient(180deg, #f0f2f6 0%, #eef1f5 100%);
+}
+
 .classes-page #teachers {
   background: var(--light);
 }
@@ -260,43 +273,108 @@
   color: #8fa8b8;
 }
 
+.classes-page #problems .section-tag,
+.classes-page #cta .section-tag,
+.classes-page #results .section-tag {
+  background: rgba(232, 185, 35, 0.12);
+  color: #f5d56a;
+  border-color: rgba(232, 185, 35, 0.35);
+}
+
 .classes-page .about-grid,
 .classes-page .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  margin-top: 50px;
+  grid-template-columns: minmax(0, 1.12fr) minmax(260px, 0.88fr);
+  gap: 64px;
+  margin-top: 48px;
+  align-items: start;
 }
 
 .classes-page .about-story p {
   color: var(--gray);
-  line-height: 1.8;
+  line-height: 1.85;
+  font-size: 1.02rem;
+  margin: 0 0 1.1rem;
+}
+
+.classes-page .about-story p:last-child {
+  margin-bottom: 0;
+}
+
+.classes-page .about-story strong {
+  color: var(--navy);
+  font-weight: 700;
 }
 
 .classes-page .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 22px;
 }
 
 .classes-page .stat-card {
   background: var(--white);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 14px;
+  padding: 26px 20px 24px;
   text-align: center;
-  border-top: 3px solid var(--gold);
+  border-top: 4px solid var(--gold);
+  border-bottom: 1px solid rgba(232, 185, 35, 0.28);
+  box-shadow:
+    0 4px 20px rgba(30, 45, 53, 0.07),
+    0 1px 3px rgba(30, 45, 53, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.classes-page .stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 14px 36px rgba(30, 45, 53, 0.12),
+    0 4px 10px rgba(30, 45, 53, 0.06);
+}
+
+.classes-page .stat-card .emoji {
+  font-size: 1.85rem;
+  line-height: 1;
+  display: block;
 }
 
 .classes-page .stat-card .num {
   font-family: "Playfair Display", serif;
-  font-size: 1.9rem;
+  font-size: 2.35rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.classes-page .stat-card .lbl {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray);
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
+.classes-page #facilities {
+  background: linear-gradient(180deg, #fafbfc 0%, #ffffff 48%, #f8fafb 100%);
+}
+
+.classes-page #facilities .section-sub {
+  max-width: 36rem;
 }
 
 .classes-page .facilities-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  margin-top: 50px;
+  gap: 22px;
+  margin-top: 48px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .classes-page .problems-grid {
@@ -407,33 +485,50 @@
 }
 
 .classes-page .facility-card {
-  background: var(--light);
+  background: var(--white);
+  border: 1px solid rgba(30, 45, 53, 0.08);
   border-radius: 16px;
-  padding: 18px 14px 16px;
+  padding: 22px 14px 20px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  min-height: 114px;
+  justify-content: center;
+  gap: 14px;
+  min-height: 128px;
+  box-shadow:
+    0 2px 10px rgba(30, 45, 53, 0.05),
+    0 1px 2px rgba(30, 45, 53, 0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.classes-page .facility-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(232, 185, 35, 0.45);
+  box-shadow:
+    0 14px 32px rgba(30, 45, 53, 0.1),
+    0 4px 12px rgba(30, 45, 53, 0.06);
 }
 
 .classes-page .fc-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f1ecdc;
-  color: #c7a84f;
-  font-size: 1.1rem;
+  background: linear-gradient(160deg, #faf3e6 0%, #f0e4cc 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  font-size: 1.4rem;
+  line-height: 1;
 }
 
 .classes-page .fc-label {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.35;
+  color: var(--navy);
+  letter-spacing: 0.01em;
 }
 
 .classes-page .teachers-grid {
@@ -797,7 +892,15 @@
     font-size: 0.92rem;
   }
 
-  .classes-page .facilities-grid,
+  .classes-page .stat-card .num {
+    font-size: 1.85rem;
+  }
+
+  .classes-page .stat-card {
+    padding: 22px 16px 20px;
+    gap: 10px;
+  }
+
   .classes-page .teachers-grid,
   .classes-page .results-grid,
   .classes-page .courses-grid {
@@ -810,13 +913,26 @@
   }
 
   .classes-page .facilities-grid {
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .classes-page .facility-card {
-    min-height: 98px;
-    padding: 14px 12px;
+    min-height: 104px;
+    padding: 14px 10px 12px;
     gap: 8px;
+  }
+
+  .classes-page .fc-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+  }
+
+  .classes-page .fc-label {
+    font-size: 0.8rem;
+    line-height: 1.3;
   }
 
   .classes-page .problem-item {
