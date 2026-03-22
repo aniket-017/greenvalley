@@ -635,6 +635,11 @@
   align-items: stretch;
 }
 
+/* Grid children default min-width:auto prevents shrinking; allow text to wrap in narrow columns */
+.classes-page #contact .contact-grid > * {
+  min-width: 0;
+}
+
 .classes-page .contact-info h3 {
   font-family: "Playfair Display", serif;
   font-size: 1.35rem;
@@ -655,6 +660,11 @@
   display: flex;
   gap: 16px;
   align-items: flex-start;
+}
+
+.classes-page .contact-item > div:last-child {
+  min-width: 0;
+  flex: 1;
 }
 
 .classes-page .contact-item-icon {
@@ -687,6 +697,7 @@
   font-size: 0.95rem;
   line-height: 1.55;
   color: var(--gray);
+  overflow-wrap: anywhere;
 }
 
 .classes-page .contact-item-value a {
@@ -929,6 +940,13 @@
   margin-top: 18px;
 }
 
+/* Contact + form: single column before phone breakpoint (avoids narrow split layout on tablets) */
+@media (max-width: 1024px) {
+  .classes-page #contact .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 900px) {
   .classes-page .etc-nav {
     padding: 0 16px;
@@ -979,6 +997,11 @@
   .classes-page .about-grid,
   .classes-page .contact-grid,
   .classes-page .problems-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Beats .classes-page #contact .contact-grid (must match ID specificity or columns stay 2-wide on phones) */
+  .classes-page #contact .contact-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1162,14 +1185,27 @@
     gap: 24px;
   }
 
-  .classes-page .inquiry-form,
+  .classes-page #contact .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
   .classes-page .contact-info {
     padding: 0;
   }
 
+  .classes-page .inquiry-form {
+    padding: 20px 16px 24px;
+  }
+
   .classes-page .form-group input,
-  .classes-page .form-group textarea {
+  .classes-page .form-group textarea,
+  .classes-page .form-group select {
     padding: 11px 13px;
+    font-size: 16px; /* avoids iOS zoom on focus */
+  }
+
+  .classes-page .form-group select {
+    padding-right: 36px;
   }
 
   .classes-page .footer-inner {
