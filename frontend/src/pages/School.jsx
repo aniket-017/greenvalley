@@ -989,6 +989,19 @@ export default function School() {
                   </div>
                 </div>
               </div>
+
+              <div className="contact-map" aria-label="Google map location">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49849.92854319811!2d75.17901177085746!3d19.830246296628726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdb999fe55ed6f5%3A0xc7de108dd6c87e34!2sGreenvalley%20Montessori%20School!5e0!3m2!1sen!2sin!4v1774428397813!5m2!1sen!2sin"
+                  width="600"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Greenvalley Montessori School - Google Map"
+                />
+              </div>
             </div>
             <div className="contact-form reveal">
               <div className="form-title">Send a Message</div>
