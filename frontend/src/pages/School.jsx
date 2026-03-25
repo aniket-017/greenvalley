@@ -968,7 +968,7 @@ export default function School() {
                   <div>
                     <div className="contact-item-label">Email</div>
                     <div className="contact-item-value">
-                      <a href="mailto:gmsprincipal01@gmail.com">gmsprincipal01@gmail.com</a>
+                      <div href="mailto:dayalgms@gmail.com">dayalgms@gmail.com</div>
                     </div>
                   </div>
                 </div>
@@ -976,7 +976,7 @@ export default function School() {
                   <div className="contact-item-icon">🕐</div>
                   <div>
                     <div className="contact-item-label">Office Hours</div>
-                    <div className="contact-item-value">Monday to Saturday, 7:00 AM – 8:00 PM</div>
+                    <div className="contact-item-value">Monday to Saturday, 8:00 AM – 2:00 PM</div>
                   </div>
                 </div>
                 <div className="contact-item">
@@ -984,7 +984,7 @@ export default function School() {
                   <div>
                     <div className="contact-item-label">Address</div>
                     <div className="contact-item-value">
-                      372, Near Datta Mandir, Behind A.S. Club, Chhatrapati Sambhajinagar
+                    372, Mhada Colony, Behind AS Club,Chhatrapati Sambhajinagar, Maharashtra 431136 
                     </div>
                   </div>
                 </div>
@@ -1007,7 +1007,7 @@ export default function School() {
               </div>
               <div className="form-group">
                 <label>Enquiry Type</label>
-                <select style={{ appearance: "none" }}>
+                <select>
                   <option value="">Select an option</option>
                   <option>Admissions / Enrolment</option>
                   <option>Academic Programmes</option>

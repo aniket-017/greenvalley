@@ -36,7 +36,7 @@ const cards = [
 ];
 
 const stats = [
-  { value: 15, suffix: '+', label: 'Years of Excellence' },
+  { value: 16, suffix: '+', label: 'Years of Excellence' },
   { value: 1200, suffix: '+', label: 'Students Enrolled' },
   { value: 100, suffix: '%', label: 'Pass Rate' },
 ];

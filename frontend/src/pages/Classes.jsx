@@ -57,7 +57,7 @@ export default function Classes() {
 
       <section id="hero">
         <div className="hero-content">
-          <div className="hero-badge">Trusted Since 2011 | 14+ Years of Excellence</div>
+          <div className="hero-badge">Trusted Since 2011 | 16+ Years of Excellence</div>
           <h1 className="hero-title">
             Where Learning Is <span className="highlight">Fun</span>
             <br />
@@ -311,7 +311,7 @@ export default function Classes() {
                 <div>
                   <span className="contact-item-label">Phone</span>
                   <p className="contact-item-value">
-                    <a href="tel:+919876543210">+91 98765 43210</a>
+                    <a href="tel:+919876543210">+91 8055314123</a>
                   </p>
                 </div>
               </li>
@@ -320,8 +320,8 @@ export default function Classes() {
                 <div>
                   <span className="contact-item-label">WhatsApp</span>
                   <p className="contact-item-value">
-                    <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
-                      +91 98765 43210
+                    <a href="https://wa.me/918055314123" target="_blank" rel="noopener noreferrer">
+                      +91 8055314123
                     </a>
                   </p>
                   <span className="contact-item-hint">Message us anytime!</span>
@@ -332,26 +332,34 @@ export default function Classes() {
                 <div>
                   <span className="contact-item-label">Email</span>
                   <p className="contact-item-value">
-                    <a href="mailto:contact@experttutorial.in">contact@experttutorial.in</a>
+                    <a href="mailto:dayalgms@gmail.com">dayalgms@gmail.com</a>
                   </p>
                 </div>
               </li>
               <li className="contact-item">
                 <span className="contact-item-icon" aria-hidden="true">🕐</span>
                 <div>
-                  <span className="contact-item-label">Timings</span>
-                  <p className="contact-item-value">
-                    Mon – Sat: 7:00 AM – 9:00 PM
-                    <br />
-                    Sunday: 9:00 AM – 1:00 PM
-                  </p>
-                </div>
+  <span className="contact-item-label">Timings</span>
+  <div className="contact-item-value">
+    <p>Mon – Sat</p>
+    <p>8:00 AM – 2:00 PM</p>
+    <p>5:00 PM – 8:00 PM</p>
+    <p>Sunday: Holiday</p>
+  </div>
+</div>
               </li>
             </ul>
-            <div className="contact-map-placeholder" role="img" aria-label="Map location placeholder">
-              <span className="contact-map-placeholder-icon" aria-hidden="true">🗺️</span>
-              <p className="contact-map-placeholder-title">Google Map</p>
-              <p className="contact-map-placeholder-text">Embed your map here — paste your Google Maps iframe in this area.</p>
+            <div className="contact-map-placeholder" aria-label="Google map location">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49849.92854319811!2d75.17901177085746!3d19.830246296628726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdb999fe55ed6f5%3A0xc7de108dd6c87e34!2sGreenvalley%20Montessori%20School!5e0!3m2!1sen!2sin!4v1774428397813!5m2!1sen!2sin"
+                width="600"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Greenvalley Montessori School - Google Map"
+              />
             </div>
           </div>
           <div className="inquiry-form">

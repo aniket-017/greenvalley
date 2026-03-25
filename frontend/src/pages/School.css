@@ -12,6 +12,12 @@
   z-index: 300;
 }
 
+/* Make native <select> dropdown options readable on Windows browsers */
+.school-page .contact-form select option {
+  color: #0f2d1a;
+  background: #ffffff;
+}
+
 .school-page section[id] {
   scroll-margin-top: 110px;
 }
