@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import logoGms from "../assets/gms.png";
 import "./School.css";
 import building from "../assets/building/building.png";
@@ -366,7 +367,7 @@ export default function School() {
             <a href="mailto:gmsprincipal01@gmail.com">gmsprincipal01@gmail.com</a>
           </div>
           <div className="topbar-item">
-            <div className="icon">🕐</div>Mon – Sat &nbsp;7 AM – 8 PM
+            <div className="icon">🕐</div>Mon – Sat &nbsp;8 AM – 2PM
           </div>
           <div className="topbar-item">
             <div className="icon">📍</div>372, Near Datta Mandir, Behind A.S. Club, Chhatrapati Sambhajinagar
@@ -385,6 +386,9 @@ export default function School() {
             </div>
           </a>
           <ul className="nav-links">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
             <li>
               <a href="#about" onClick={handleSmoothAnchorClick}>
                 About

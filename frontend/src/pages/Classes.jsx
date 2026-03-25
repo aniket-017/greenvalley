@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Classes.css";
 import etc from "../assets/etc.png";
 
@@ -45,6 +46,9 @@ export default function Classes() {
           </div>
         </a>
         <ul className="nav-links">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
           <li><a href="#about">About</a></li>
           <li><a href="#facilities">Facilities</a></li>
           {/* <li><a href="#teachers">Teachers</a></li> */}
