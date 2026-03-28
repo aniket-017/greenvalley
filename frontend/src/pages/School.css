@@ -4,6 +4,11 @@
   overflow-y: visible;
 }
 
+.school-page .teacher-photo-empty {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(26, 58, 42, 0.07), rgba(26, 58, 42, 0.14));
+}
 
 .school-page nav {
   position: -webkit-sticky;

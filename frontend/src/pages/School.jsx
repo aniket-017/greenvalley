@@ -6,6 +6,35 @@ import building from "../assets/building/building.png";
 import diractor from "../assets/building/diractor.png";
 import principal from "../assets/building/principal.png";
 
+// Faculty photos — swap each `from` path to that teacher’s image file (names must match `photo` below).
+import photoAntraBera from "../assets/teacher/antra-bera.jpeg";
+import photoDiptiAtre from "../assets/teacher/dipti-atre.jpeg";
+import photoJaishreeShirsat from "../assets/teacher/jaishree-shirsat.jpeg";
+import photoPratibhaShelke from "../assets/teacher/pratibha-shelke.jpeg";
+import photoSonuPooniya from "../assets/teacher/sonu-pooniya.jpeg";
+import photoSwatiShekhawat from "../assets/teacher/swati-shekhawat.jpeg";
+import photoAkshitaKanwar from "../assets/teacher/akshita-kanwar.jpeg";
+import photoKushbuShekhawat from "../assets/teacher/kushbu-shekhawat.jpeg";
+import photoNamrtaGedam from "../assets/teacher/namrta-gedam.jpeg";
+import photoSonaliShahane from "../assets/teacher/sonali-shahane.jpeg";
+import photoRahulPatil from "../assets/teacher/rahul-patil.jpeg";
+import photoShyamPawar from "../assets/teacher/shyam-pawar.jpeg";
+import photoDiptiWaghmare from "../assets/teacher/dipti-waghmare.jpeg";
+import photoJyotiSant from "../assets/teacher/jyoti-sant.jpeg";
+import photoKiranKapse from "../assets/teacher/kiran-kapse.jpeg";
+import photoNehaWagh from "../assets/teacher/neha-wagh.jpeg";
+import photoRupaKhajekar from "../assets/teacher/rupa-khajekar.jpeg";
+import photoSarikaNikam from "../assets/teacher/sarika-nikam.jpeg";
+import photoSavitaPawar from "../assets/teacher/savita-pawar.jpeg";
+import photoShitalGore from "../assets/teacher/shital-gore.jpeg";
+import photoShitalMali from "../assets/teacher/shital-mali.jpeg";
+
+import photoAnusayaTai from "../assets/helpers/anusaya-tai.jpeg";
+import photoPallawaiTai from "../assets/helpers/pallawai-tai.jpeg";
+import photoSangitaTai from "../assets/helpers/sangita-tai.jpeg";
+import photoSarikaTaiStaff from "../assets/helpers/sarika-tai.jpeg";
+import photoShitalTaiStaff from "../assets/helpers/shital-tai.jpeg";
+
 const activityImagesMap = import.meta.glob("../assets/activities/*.{png,jpg,jpeg,webp,gif,svg}", {
   eager: true,
   import: "default",
@@ -33,210 +62,87 @@ const newspaperImages = Object.entries(newspaperImagesMap)
   .sort((a, b) => a.num - b.num || a.filename.localeCompare(b.filename))
   .map((item) => item.url);
 
-const teacherPhotosMap = import.meta.glob("../assets/teachers/*.{jpg,jpeg,png,webp,gif}", {
-  eager: true,
-  import: "default",
-});
-
-const teacherPhotoByKey = Object.fromEntries(
-  Object.entries(teacherPhotosMap).map(([path, url]) => {
-    const filename = path.split("/").pop() || "";
-    const key = filename.replace(/\.[^.]+$/, "");
-    return [key, url];
-  }),
-);
-
-const stripMamOrSirSuffix = (value) => value.replace(/(Mam|Sir)$/i, "");
-const splitCamelCase = (value) =>
-  value
-    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
-    .split(/\s+/)
-    .filter(Boolean);
-
-const inferNameFromFileKey = (fileKey) => splitCamelCase(stripMamOrSirSuffix(fileKey)).join(" ");
-
-const getInitials = (name) => {
-  const tokens = name.trim().split(/\s+/).filter(Boolean);
-  if (tokens.length >= 2) return `${tokens[0][0]}${tokens[1][0]}`.toUpperCase();
-  if (tokens.length === 1) return tokens[0].slice(0, 2).toUpperCase();
-  return "";
-};
-
-const bgPalette = [
-  "var(--green-mid)",
-  "var(--terracotta)",
-  "var(--sky)",
-  "var(--gold)",
-  "#8b5cf6",
-  "#6366f1",
-  "#ec4899",
-  "#14b8a6",
-  "#d97706",
-  "#f97316",
+const languagesHumanitiesTeachers = [
+  { id: "lang-antra-bera", name: "Ms. Antra Bera", subject: "English", photo: photoAntraBera },
+  { id: "lang-dipti-atre", name: "Ms. Dipti Atre", subject: "Marathi (HOD Secondary)", photo: photoDiptiAtre },
+  { id: "lang-jaishree-shirsat", name: "Ms. Jaishree Shirsat", subject: "Marathi", photo: photoJaishreeShirsat },
+  { id: "lang-pratibha-shelke", name: "Ms. Pratibha Shelke", subject: "Marathi", photo: photoPratibhaShelke },
+  { id: "lang-sonu-pooniya", name: "Ms. Sonu Pooniya", subject: "Hindi", photo: photoSonuPooniya },
+  { id: "lang-swati-shekhawat", name: "Ms. Swati Shekhawat", subject: "Social Studies", photo: photoSwatiShekhawat },
 ];
 
-const pickBgForKey = (key) => {
-  const hash = key.split("").reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
-  return bgPalette[hash % bgPalette.length];
-};
-
-const languagesHumanitiesBaseTeachers = [
+const scienceMathTeachers = [
   {
-    id: "Antra Bera",
-    name: "Antra Bera",
-    subject: "English",
-    initials: "AB",
-    avatarBg: "var(--green-mid)",
-    photoKey: "AntraMam",
+    id: "sci-akshita-kanwar",
+    name: "Ms. Akshita Kanwar",
+    subject: "Science (HOD Primary Section)",
+    photo: photoAkshitaKanwar,
   },
-  {
-    id: "Dipti Atre",
-    name: "Dipti Atre",
-    subject: "Marathi",
-    initials: "DA",
-    avatarBg: "var(--terracotta)",
-    photoKey: "DiptiAtreMam",
-  },
-  {
-    id: "Ekta Bais",
-    name: "Ekta Bais",
-    subject: "English",
-    initials: "EB",
-    avatarBg: "var(--green-mid)",
-  },
-  {
-    id: "Jayshri Patil",
-    name: "Jayshri Patil",
-    subject: "Marathi",
-    initials: "JP",
-    avatarBg: "var(--terracotta)",
-    photoKey: "JayshreePatilMam",
-  },
-  {
-    id: "Jayshri Shirshat",
-    name: "Jayshri Shirshat",
-    subject: "Hindi",
-    initials: "JS",
-    avatarBg: "var(--sky)",
-  },
-  {
-    id: "Jyoti Sant",
-    name: "Jyoti Sant",
-    subject: "Marathi",
-    initials: "JSa",
-    avatarBg: "var(--terracotta)",
-    photoKey: "JyotiMam",
-  },
-  {
-    id: "Khushbu Shekhawat",
-    name: "Khushbu Shekhawat",
-    subject: "English",
-    initials: "KS",
-    avatarBg: "var(--green-mid)",
-    photoKey: "KhushbuMam",
-  },
-  {
-    id: "Sonu Pooniya",
-    name: "Sonu Pooniya",
-    subject: "Hindi",
-    initials: "SP",
-    avatarBg: "var(--sky)",
-    photoKey: "SonuPooniyaMam",
-  },
-  {
-    id: "Saroj Kanwar",
-    name: "Saroj Kanwar",
-    subject: "Hindi",
-    initials: "SK",
-    avatarBg: "var(--sky)",
-    photoKey: "SarojMam",
-  },
-  {
-    id: "Yogeshwar Hegde",
-    name: "Yogeshwar Hegde",
-    subject: "Sanskrit",
-    initials: "YH",
-    avatarBg: "#8b5cf6",
-  },
+  { id: "sci-kushbu-shekhawat", name: "Ms. Kushbu Shekhawat", subject: "Science", photo: photoKushbuShekhawat },
+  { id: "sci-namrta-gedam", name: "Ms. Namrta Gedam", subject: "Science", photo: photoNamrtaGedam },
+  { id: "sci-sonali-shahane", name: "Ms. Sonali Shahane", subject: "Maths", photo: photoSonaliShahane },
 ];
 
-const languagesHumanitiesTeachers = (() => {
-  const baseNameSet = new Set(
-    languagesHumanitiesBaseTeachers.map((t) => t.name.trim().toLowerCase().replace(/\s+/g, " ")),
+const artMusicTechTeachers = [
+  { id: "amt-rahul-patil", name: "Mr. Rahul Patil", subject: "Sports", photo: photoRahulPatil },
+  { id: "amt-shyam-pawar", name: "Mr. Shyam Pawar", subject: "Dance", photo: photoShyamPawar },
+];
+
+const prePrimaryTeachers = [
+  { id: "pp-dipti-waghmare", name: "Ms. Dipti Waghmare", subject: "Mother Teacher", photo: photoDiptiWaghmare },
+  { id: "pp-jyoti-sant", name: "Ms. Jyoti Sant", subject: "Mother Teacher", photo: photoJyotiSant },
+  { id: "pp-kiran-kapse", name: "Ms. Kiran Kapse", subject: "Mother Teacher", photo: photoKiranKapse },
+  { id: "pp-neha-wagh", name: "Ms. Neha Wagh", subject: "Mother Teacher", photo: photoNehaWagh },
+  { id: "pp-rupa-khajekar", name: "Ms. Rupa Khajekar", subject: "Reception", photo: photoRupaKhajekar },
+  { id: "pp-sarika-nikam", name: "Ms. Sarika Nikam", subject: "Mother Teacher", photo: photoSarikaNikam },
+  { id: "pp-savita-pawar", name: "Ms. Savita Pawar", subject: "Mother Teacher", photo: photoSavitaPawar },
+  { id: "pp-shital-gore", name: "Ms. Shital Gore", subject: "Mother Teacher", photo: photoShitalGore },
+  { id: "pp-shital-mali", name: "Ms. Shital Mali", subject: "Mother Teacher", photo: photoShitalMali },
+];
+
+const supportStaff = [
+  { id: "staff-anusaya-tai", name: "Ms. Anusaya Tai", subject: "School Attendant", photo: photoAnusayaTai },
+  { id: "staff-pallawai-tai", name: "Ms. Pallawai Tai", subject: "School Attendant", photo: photoPallawaiTai },
+  { id: "staff-sangita-tai", name: "Ms. Sangita Tai", subject: "School Attendant", photo: photoSangitaTai },
+  { id: "staff-sarika-tai", name: "Ms. Sarika Tai", subject: "School Attendant", photo: photoSarikaTaiStaff },
+  { id: "staff-shital-tai", name: "Ms. Shital Tai", subject: "School Attendant", photo: photoShitalTaiStaff },
+];
+
+function FacultyTeacherCard({ teacher, index, activeTeacher, setActiveTeacher }) {
+  const isActive = activeTeacher === teacher.id;
+  return (
+    <div
+      className={`teacher-card with-photo ${teacher.ribbonLight ? "ribbon-light" : ""} ${isActive ? "active" : ""}`}
+      style={{ animationDelay: `${(index + 1) * 0.04}s` }}
+      onClick={() => setActiveTeacher(isActive ? null : teacher.id)}
+    >
+      <div className="teacher-photo-zone">
+        {teacher.photo ? (
+          <img src={teacher.photo} alt={teacher.name} />
+        ) : (
+          <div className="teacher-photo-empty" aria-hidden />
+        )}
+      </div>
+
+      <div className="teacher-badge">
+        <svg viewBox="0 0 14 14">
+          <polyline points="2,7 6,11 12,3" />
+        </svg>
+      </div>
+
+      <div className="teacher-ribbon">
+        <div className="teacher-name">{teacher.name}</div>
+        {teacher.subject && <div className="teacher-subject">{teacher.subject}</div>}
+      </div>
+    </div>
   );
-
-  const photoKeys = Object.keys(teacherPhotoByKey);
-  const compactToken = (token) => token.replace(/[aeiou]/g, "");
-  const tokenMatches = (a, b) => {
-    const aa = a.trim().toLowerCase();
-    const bb = b.trim().toLowerCase();
-    if (!aa || !bb) return false;
-    return aa === bb || compactToken(aa) === compactToken(bb);
-  };
-
-  const usedPhotoKeys = new Set();
-  const baseWithPhotos = languagesHumanitiesBaseTeachers.map((t) => {
-    let matchedPhotoKey = t.photoKey;
-    let photoUrl = matchedPhotoKey ? teacherPhotoByKey[matchedPhotoKey] : undefined;
-
-    if (!photoUrl) {
-      const teacherTokens = t.name.trim().toLowerCase().split(/\s+/).filter(Boolean);
-
-      matchedPhotoKey = photoKeys
-        .filter((key) => !usedPhotoKeys.has(key))
-        .map((photoKey) => {
-          const fileTokens = splitCamelCase(stripMamOrSirSuffix(photoKey))
-            .map((token) => token.toLowerCase())
-            .filter(Boolean);
-
-          const overlap = teacherTokens.reduce((acc, tt) => {
-            const hasMatch = fileTokens.some((ft) => tokenMatches(tt, ft));
-            return acc + (hasMatch ? 1 : 0);
-          }, 0);
-
-          if (overlap === 0) return { photoKey, score: 0 };
-
-          const firstTokenBoost =
-            fileTokens.length > 0 && teacherTokens.length > 0 && tokenMatches(teacherTokens[0], fileTokens[0]) ? 5 : 0;
-
-          return { photoKey, score: overlap * 10 + firstTokenBoost };
-        })
-        .sort((a, b) => b.score - a.score)[0]?.photoKey;
-
-      photoUrl = matchedPhotoKey ? teacherPhotoByKey[matchedPhotoKey] : undefined;
-    }
-
-    if (photoUrl && matchedPhotoKey) usedPhotoKeys.add(matchedPhotoKey);
-    return { ...t, photoUrl, photoKey: matchedPhotoKey };
-  });
-
-  const newTeachers = Object.entries(teacherPhotoByKey)
-    .filter(([photoKey]) => !usedPhotoKeys.has(photoKey))
-    .map(([photoKey, url]) => {
-      const name = inferNameFromFileKey(photoKey) || photoKey;
-      const normalized = name.trim().toLowerCase().replace(/\s+/g, " ");
-      if (baseNameSet.has(normalized)) return null;
-
-      return {
-        id: photoKey,
-        name,
-        subject: undefined,
-        initials: getInitials(name),
-        avatarBg: pickBgForKey(photoKey),
-        photoKey,
-        photoUrl: url,
-      };
-    })
-    .filter(Boolean);
-
-  return [...baseWithPhotos, ...newTeachers];
-})();
+}
 
 const heroStats = [
-  { value: 550, suffix: "+", label: "Students" },
-  { value: 19, suffix: "+", label: "Classrooms" },
-  { value: 35, suffix: "+", label: "Faculty" },
-  { value: 16, suffix: "+", label: "Years" },
+  { value: 374, suffix: "+", label: "Students" },
+  { value: 12, suffix: "+", label: "Classes" },
+  { value: 26, suffix: "+", label: "Faculty" },
+  { value: 14, suffix: "+", label: "Years" },
 ];
 
 export default function School() {
@@ -345,13 +251,6 @@ export default function School() {
 
   const activeAlt = useMemo(() => `Activity ${activeIndex + 1}`, [activeIndex]);
   const activeNewsImage = activeNewsIndex !== null ? newspaperImages[activeNewsIndex] : null;
-  const directorImage =
-    teacherPhotoByKey.AntraMaM ||
-    teacherPhotoByKey.KiranMam ||
-    teacherPhotoByKey["AkshitaMam-removebg-preview"] ||
-    teacherPhotoByKey.AkshitaMam;
-  const principalImage =
-    teacherPhotoByKey.AkshitaMam || teacherPhotoByKey.NamrataMam || teacherPhotoByKey["AntraMam-removebg-preview"];
   {
     /* TOP BAR */
   }
@@ -462,7 +361,7 @@ export default function School() {
             <div className="hero-logo-display">
               <div className="hero-img-glow" />
               {/* <div className="hero-stat-badge">
-                <span className="sb-num">550+</span>
+                <span className="sb-num">374+</span>
                 <span className="sb-lbl">Students</span>
               </div> */}
               <img src={building} alt="Greenvalley Montessori School building" className="hero-logo-img" />
@@ -492,8 +391,7 @@ export default function School() {
               <p>
                 Greenvalley Montessori School commenced on the 12th February, 2011 with just 3 pre-primary classes and
                 52 students, officially opening on the 11th June, 2012. Since then, we have grown into a thriving
-                institution with 19 classrooms, a faculty of 35, and approximately 550 enrolled students—building on 16
-                years of experience in education and care.
+                institution with 12 classes and two preschool groups, serving approximately 374 enrolled students.
               </p>
               <p>
                 We are one of three primary schools serving the rural area and are continually growing. Our priority
@@ -728,36 +626,15 @@ export default function School() {
             </div>
 
             <div className="teachers-grid">
-              {languagesHumanitiesTeachers.map((teacher, i) => {
-                const isActive = activeTeacher === teacher.id;
-                return (
-                  <div
-                    key={teacher.id}
-                    className={`teacher-card with-photo ${teacher.ribbonLight ? "ribbon-light" : ""} ${isActive ? "active" : ""}`}
-                    style={{ animationDelay: `${(i + 1) * 0.04}s` }}
-                    onClick={() => setActiveTeacher(isActive ? null : teacher.id)}
-                  >
-                    <div className="teacher-photo-zone">
-                      {teacher.photoUrl ? (
-                        <img src={teacher.photoUrl} alt={teacher.name} />
-                      ) : (
-                        <div className="teacher-initials">{teacher.initials}</div>
-                      )}
-                    </div>
-
-                    <div className="teacher-badge">
-                      <svg viewBox="0 0 14 14">
-                        <polyline points="2,7 6,11 12,3" />
-                      </svg>
-                    </div>
-
-                    <div className="teacher-ribbon">
-                      <div className="teacher-name">{teacher.name}</div>
-                      {teacher.subject && <div className="teacher-subject">{teacher.subject}</div>}
-                    </div>
-                  </div>
-                );
-              })}
+              {languagesHumanitiesTeachers.map((teacher, i) => (
+                <FacultyTeacherCard
+                  key={teacher.id}
+                  teacher={teacher}
+                  index={i}
+                  activeTeacher={activeTeacher}
+                  setActiveTeacher={setActiveTeacher}
+                />
+              ))}
             </div>
           </div>
 
@@ -766,141 +643,66 @@ export default function School() {
               <span className="dept-icon">🔬</span> Science &amp; Mathematics
             </div>
             <div className="teachers-grid">
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#0ea5e9" }}>
-                  NG
-                </div>
-                <div className="teacher-name">Namrata Gedam</div>
-                <div className="teacher-subject">Science</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#0ea5e9" }}>
-                  JS
-                </div>
-                <div className="teacher-name">Javed Shaikh</div>
-                <div className="teacher-subject">Science</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "var(--gold)" }}>
-                  SS
-                </div>
-                <div className="teacher-name">Sonali Shahane</div>
-                <div className="teacher-subject">Maths</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "var(--gold)" }}>
-                  TK
-                </div>
-                <div className="teacher-name">Trupti Komte</div>
-                <div className="teacher-subject">Maths</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#6366f1" }}>
-                  SwS
-                </div>
-                <div className="teacher-name">Swati Shekhawat</div>
-                <div className="teacher-subject">Social Science</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#6366f1" }}>
-                  MP
-                </div>
-                <div className="teacher-name">Mahesh Patil</div>
-                <div className="teacher-subject">Social Science</div>
-              </div>
+              {scienceMathTeachers.map((teacher, i) => (
+                <FacultyTeacherCard
+                  key={teacher.id}
+                  teacher={teacher}
+                  index={i}
+                  activeTeacher={activeTeacher}
+                  setActiveTeacher={setActiveTeacher}
+                />
+              ))}
             </div>
           </div>
 
           <div className="dept-section reveal">
             <div className="dept-title">
-              <span className="dept-icon">🎨</span> Arts, Music &amp; Technology
+              <span className="dept-icon">🎨</span> Art, Music &amp; Technology
             </div>
             <div className="teachers-grid">
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#ec4899" }}>
-                  JR
-                </div>
-                <div className="teacher-name">Jyotsna Raut</div>
-                <div className="teacher-subject">Art &amp; Craft</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#8b5cf6" }}>
-                  ShP
-                </div>
-                <div className="teacher-name">Shriram Potdar</div>
-                <div className="teacher-subject">Music</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#f97316" }}>
-                  ShPa
-                </div>
-                <div className="teacher-name">Shyam Pawar</div>
-                <div className="teacher-subject">Dance</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#14b8a6" }}>
-                  DF
-                </div>
-                <div className="teacher-name">Deepak Fuse</div>
-                <div className="teacher-subject">Computer</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#14b8a6" }}>
-                  ShPe
-                </div>
-                <div className="teacher-name">Shubham Pere</div>
-                <div className="teacher-subject">Computer</div>
-              </div>
+              {artMusicTechTeachers.map((teacher, i) => (
+                <FacultyTeacherCard
+                  key={teacher.id}
+                  teacher={teacher}
+                  index={i}
+                  activeTeacher={activeTeacher}
+                  setActiveTeacher={setActiveTeacher}
+                />
+              ))}
             </div>
           </div>
 
           <div className="dept-section reveal">
             <div className="dept-title">
-              <span className="dept-icon">🌸</span> Pre-Primary Section
+              <span className="dept-icon">🧸</span> Pre-Primary Section
             </div>
             <div className="teachers-grid">
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "var(--green-mid)" }}>
-                  KD
-                </div>
-                <div className="teacher-name">Kalyani Danane</div>
-                <div className="teacher-subject">Pre Primary</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "var(--green-mid)" }}>
-                  KG
-                </div>
-                <div className="teacher-name">Kanchya Ghyar</div>
-                <div className="teacher-subject">Pre Primary</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "var(--green-mid)" }}>
-                  SaN
-                </div>
-                <div className="teacher-name">Sarika Nikam</div>
-                <div className="teacher-subject">Pre Primary</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "var(--green-mid)" }}>
-                  SG
-                </div>
-                <div className="teacher-name">Sheetal Gore</div>
-                <div className="teacher-subject">Pre Primary</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#d97706" }}>
-                  SD
-                </div>
-                <div className="teacher-name">Sangeeta Das</div>
-                <div className="teacher-subject">Helper</div>
-              </div>
-              <div className="teacher-card">
-                <div className="teacher-avatar" style={{ background: "#d97706" }}>
-                  SaK
-                </div>
-                <div className="teacher-name">Sarika Kapure</div>
-                <div className="teacher-subject">Helper</div>
-              </div>
+              {prePrimaryTeachers.map((teacher, i) => (
+                <FacultyTeacherCard
+                  key={teacher.id}
+                  teacher={teacher}
+                  index={i}
+                  activeTeacher={activeTeacher}
+                  setActiveTeacher={setActiveTeacher}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="dept-section reveal">
+            <div className="dept-title">
+              <span className="dept-icon">🤝</span> Support Staff
+            </div>
+            <div className="teachers-grid">
+              {supportStaff.map((teacher, i) => (
+                <FacultyTeacherCard
+                  key={teacher.id}
+                  teacher={teacher}
+                  index={i}
+                  activeTeacher={activeTeacher}
+                  setActiveTeacher={setActiveTeacher}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -964,7 +766,7 @@ export default function School() {
                     <div className="contact-item-value">
                       +91 8055314123
                       <br />
-                      0240-2994-101
+                      0240-2954039
                     </div>
                   </div>
                 </div>
@@ -989,7 +791,7 @@ export default function School() {
                   <div>
                     <div className="contact-item-label">Address</div>
                     <div className="contact-item-value">
-                    372, Mhada Colony, Behind AS Club,Chhatrapati Sambhajinagar, Maharashtra 431136 
+                      372, Mhada Colony, Behind AS Club,Chhatrapati Sambhajinagar, Maharashtra 431136
                     </div>
                   </div>
                 </div>
@@ -1129,7 +931,7 @@ export default function School() {
                   <a href="tel:+918055314123">+91 8055314123</a>
                 </li>
                 <li>
-                  <a href="tel:02402994101"> 0240-2994-101</a>
+                  <a href="tel:02402954039">0240-2954039</a>
                 </li>
                 <li>
                   <a href="mailto:gmsprincipal01@gmail.com">gmsprincipal01@gmail.com</a>
