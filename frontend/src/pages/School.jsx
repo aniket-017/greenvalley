@@ -964,7 +964,7 @@ export default function School() {
                     <div className="contact-item-value">
                       +91 8055314123
                       <br />
-                      0240-2954039
+                      0240-2994-101
                     </div>
                   </div>
                 </div>
@@ -1129,7 +1129,7 @@ export default function School() {
                   <a href="tel:+918055314123">+91 8055314123</a>
                 </li>
                 <li>
-                  <a href="tel:02402954039">0240-2954039</a>
+                  <a href="tel:02402994101"> 0240-2994-101</a>
                 </li>
                 <li>
                   <a href="mailto:gmsprincipal01@gmail.com">gmsprincipal01@gmail.com</a>
