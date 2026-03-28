@@ -78,13 +78,13 @@ export default function Home() {
         <div className="container hero-content">
           <div className="hero-badge">
             <span className="badge-dot" />
-            Quality education in Aurangabad
+            Quality education in Chatrapati Sambhajinagar
           </div>
 
           <h1 className="hero-title">
             Greenvalley Montessori School
             <span className="hero-title-amp"> &amp; </span>
-            Expert Tution Center
+            Expert Tutorial Center
           </h1>
 
           <p className="hero-subtitle">

@@ -233,10 +233,10 @@ const languagesHumanitiesTeachers = (() => {
 })();
 
 const heroStats = [
-  { value: 374, suffix: "+", label: "Students" },
-  { value: 12, suffix: "+", label: "Classes" },
-  { value: 25, suffix: "+", label: "Faculty" },
-  { value: 14, suffix: "+", label: "Years" },
+  { value: 550, suffix: "+", label: "Students" },
+  { value: 19, suffix: "+", label: "Classrooms" },
+  { value: 35, suffix: "+", label: "Faculty" },
+  { value: 16, suffix: "+", label: "Years" },
 ];
 
 export default function School() {
@@ -462,7 +462,7 @@ export default function School() {
             <div className="hero-logo-display">
               <div className="hero-img-glow" />
               {/* <div className="hero-stat-badge">
-                <span className="sb-num">374+</span>
+                <span className="sb-num">550+</span>
                 <span className="sb-lbl">Students</span>
               </div> */}
               <img src={building} alt="Greenvalley Montessori School building" className="hero-logo-img" />
@@ -492,7 +492,8 @@ export default function School() {
               <p>
                 Greenvalley Montessori School commenced on the 12th February, 2011 with just 3 pre-primary classes and
                 52 students, officially opening on the 11th June, 2012. Since then, we have grown into a thriving
-                institution with 12 classes and two preschool groups, serving approximately 374 enrolled students.
+                institution with 19 classrooms, a faculty of 35, and approximately 550 enrolled students—building on 16
+                years of experience in education and care.
               </p>
               <p>
                 We are one of three primary schools serving the rural area and are continually growing. Our priority
