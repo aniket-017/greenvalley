@@ -1,7 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Classes.css";
 import etc from "../assets/etc.png";
+import state1718 from "../assets/state/state 17-18.jpeg";
+import state1819 from "../assets/state/state 18-19.jpeg";
+import state1920 from "../assets/state/state 19-20.jpeg";
+import state2223 from "../assets/state/state 22-23.jpeg";
+import state2324 from "../assets/state/state 23-24.jpeg";
+import state2425 from "../assets/state/state 24-25.jpeg";
+import cbse1920 from "../assets/cbse/cbse 19-20.jpeg";
+import cbse2021 from "../assets/cbse/cbse 20-21.jpeg";
+import cbse2223 from "../assets/cbse/cbse 22-23.jpeg";
+import cbse2324 from "../assets/cbse/cbse 23 -24.jpeg";
+import cbse2425 from "../assets/cbse/cbse 24-25.jpeg";
+
+const stateResults = [
+  { year: "2017–18", src: state1718 },
+  { year: "2018–19", src: state1819 },
+  { year: "2019–20", src: state1920 },
+  { year: "2022–23", src: state2223 },
+  { year: "2023–24", src: state2324 },
+  { year: "2024–25", src: state2425 },
+];
+
+const cbseResults = [
+  { year: "2019–20", src: cbse1920 },
+  { year: "2020–21", src: cbse2021 },
+  { year: "2022–23", src: cbse2223 },
+  { year: "2023–24", src: cbse2324 },
+  { year: "2024–25", src: cbse2425 },
+];
 
 export default function Classes() {
   const heroStats = [
@@ -11,6 +39,13 @@ export default function Classes() {
     { value: 95, suffix: "%", label: "Distinction 2024" },
   ];
   const [animatedHeroStats, setAnimatedHeroStats] = useState(heroStats.map(() => 0));
+
+  const [activeTab, setActiveTab] = useState("state");
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [lightbox, setLightbox] = useState(null);
+  const yearGridRef = useRef(null);
+
+  const results = activeTab === "state" ? stateResults : cbseResults;
 
   useEffect(() => {
     const duration = 1500;
@@ -31,6 +66,29 @@ export default function Classes() {
     return () => cancelAnimationFrame(rafId);
   }, []);
 
+  useEffect(() => {
+    if (yearGridRef.current) {
+      yearGridRef.current.scrollTo({ left: 0, behavior: "smooth" });
+    }
+    setCarouselIndex(0);
+  }, [activeTab]);
+
+  const handlePrev = () => {
+    const container = yearGridRef.current;
+    if (!container) return;
+    const offset = Math.floor(container.clientWidth * 0.8);
+    container.scrollBy({ left: -offset, behavior: "smooth" });
+    setCarouselIndex((current) => Math.max(current - 1, 0));
+  };
+
+  const handleNext = () => {
+    const container = yearGridRef.current;
+    if (!container) return;
+    const offset = Math.floor(container.clientWidth * 0.8);
+    container.scrollBy({ left: offset, behavior: "smooth" });
+    setCarouselIndex((current) => current + 1);
+  };
+
   return (
     <div className="classes-page">
       <nav className="etc-nav">
@@ -38,7 +96,14 @@ export default function Classes() {
           <img
             src={etc}
             alt="Expert Tutorial Center Logo"
-            style={{ height: "52px", width: "52px", objectFit: "contain", borderRadius: "8px", background: "#fff", padding: "3px" }}
+            style={{
+              height: "52px",
+              width: "52px",
+              objectFit: "contain",
+              borderRadius: "8px",
+              background: "#fff",
+              padding: "3px",
+            }}
           />
           <div className="logo-text">
             <strong>Expert Tutorial Center</strong>
@@ -49,14 +114,26 @@ export default function Classes() {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#facilities">Facilities</a></li>
+          <li>
+            <a href="#about">About</a>
+          </li>
+          <li>
+            <a href="#facilities">Facilities</a>
+          </li>
           {/* <li><a href="#teachers">Teachers</a></li> */}
-          <li><a href="#results">Results</a></li>
-          <li><a href="#courses">Courses</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li>
+            <a href="#results">Results</a>
+          </li>
+          <li>
+            <a href="#courses">Courses</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
         </ul>
-        <a href="#contact" className="classes-nav-cta">Enroll Now</a>
+        <a href="#contact" className="classes-nav-cta">
+          Enroll Now
+        </a>
       </nav>
 
       <section id="hero">
@@ -71,8 +148,12 @@ export default function Classes() {
             <strong>22 Classrooms</strong> • <strong>27 Expert Teachers</strong> • <strong>Thousands of Toppers</strong>
           </p>
           <div className="hero-btns">
-            <a href="#contact" className="classes-btn-primary">Enroll Now</a>
-            <a href="#contact" className="classes-btn-outline">Book Free Demo</a>
+            <a href="#contact" className="classes-btn-primary">
+              Enroll Now
+            </a>
+            <a href="#contact" className="classes-btn-outline">
+              Book Free Demo
+            </a>
           </div>
           <div className="hero-stats">
             {heroStats.map((stat, index) => (
@@ -96,16 +177,46 @@ export default function Classes() {
         </div>
         <div className="about-grid">
           <div className="about-story">
-            <p><strong>Expert Tuition Center</strong> was founded in 2011 with a simple but powerful belief - every student deserves quality education in a stress-free environment.</p>
-            <p>We began with just <strong>4 classrooms</strong> and a dedicated team of <strong>3 passionate teachers</strong>. Over the past 14 years, we have grown into one of the most trusted tuition centers in the region, now featuring <strong>22 modern smart classrooms</strong> and a team of <strong>27 highly qualified educators</strong>.</p>
-            <p>Our mission is to make learning simple, enjoyable, and effective - building not just academic excellence, but the confidence every student needs to face any challenge.</p>
-            <p>We have guided <strong>thousands of students</strong> to achieve distinctions in board exams and beyond, making families proud year after year.</p>
+            <p>
+              <strong>Expert Tuition Center</strong> was founded in 2011 with a simple but powerful belief - every
+              student deserves quality education in a stress-free environment.
+            </p>
+            <p>
+              We began with just <strong>4 classrooms</strong> and a dedicated team of{" "}
+              <strong>3 passionate teachers</strong>. Over the past 14 years, we have grown into one of the most trusted
+              tuition centers in the region, now featuring <strong>22 modern smart classrooms</strong> and a team of{" "}
+              <strong>27 highly qualified educators</strong>.
+            </p>
+            <p>
+              Our mission is to make learning simple, enjoyable, and effective - building not just academic excellence,
+              but the confidence every student needs to face any challenge.
+            </p>
+            <p>
+              We have guided <strong>thousands of students</strong> to achieve distinctions in board exams and beyond,
+              making families proud year after year.
+            </p>
           </div>
           <div className="stats-grid">
-            <div className="stat-card"><span className="emoji">👨‍🏫</span><span className="num">27+</span><span className="lbl">Qualified Teachers</span></div>
-            <div className="stat-card"><span className="emoji">🏫</span><span className="num">22</span><span className="lbl">Smart Classrooms</span></div>
-            <div className="stat-card"><span className="emoji">📅</span><span className="num">14+</span><span className="lbl">Years Experience</span></div>
-            <div className="stat-card"><span className="emoji">🎓</span><span className="num">5000+</span><span className="lbl">Successful Students</span></div>
+            <div className="stat-card">
+              <span className="emoji">👨‍🏫</span>
+              <span className="num">27+</span>
+              <span className="lbl">Qualified Teachers</span>
+            </div>
+            <div className="stat-card">
+              <span className="emoji">🏫</span>
+              <span className="num">22</span>
+              <span className="lbl">Smart Classrooms</span>
+            </div>
+            <div className="stat-card">
+              <span className="emoji">📅</span>
+              <span className="num">14+</span>
+              <span className="lbl">Years Experience</span>
+            </div>
+            <div className="stat-card">
+              <span className="emoji">🎓</span>
+              <span className="num">5000+</span>
+              <span className="lbl">Successful Students</span>
+            </div>
           </div>
         </div>
       </section>
@@ -120,14 +231,36 @@ export default function Classes() {
         <div className="problems-grid">
           <div className="problems-list">
             {[
-              { icon: "🧠", title: "Memory & Retention Issues", desc: "Difficulty remembering formulas, dates, and concepts even after repeated reading." },
-              { icon: "⏱️", title: "Poor Time Management", desc: "Unable to complete syllabus on time or balance multiple subjects effectively." },
-              { icon: "😰", title: "Exam Stress & Anxiety", desc: "Nervousness before exams that affects performance despite knowing the material." },
-              { icon: "📉", title: "Low Confidence", desc: "Feeling behind peers and losing motivation to study and improve grades." },
-              { icon: "📚", title: "Weak Fundamentals", desc: "Gaps in basic concepts making it hard to understand advanced topics." },
+              {
+                icon: "🧠",
+                title: "Memory & Retention Issues",
+                desc: "Difficulty remembering formulas, dates, and concepts even after repeated reading.",
+              },
+              {
+                icon: "⏱️",
+                title: "Poor Time Management",
+                desc: "Unable to complete syllabus on time or balance multiple subjects effectively.",
+              },
+              {
+                icon: "😰",
+                title: "Exam Stress & Anxiety",
+                desc: "Nervousness before exams that affects performance despite knowing the material.",
+              },
+              {
+                icon: "📉",
+                title: "Low Confidence",
+                desc: "Feeling behind peers and losing motivation to study and improve grades.",
+              },
+              {
+                icon: "📚",
+                title: "Weak Fundamentals",
+                desc: "Gaps in basic concepts making it hard to understand advanced topics.",
+              },
             ].map((item) => (
               <div className="problem-item" key={item.title}>
-                <span className="problem-icon" aria-hidden="true">{item.icon}</span>
+                <span className="problem-icon" aria-hidden="true">
+                  {item.icon}
+                </span>
                 <div>
                   <h4>{item.title}</h4>
                   <p>{item.desc}</p>
@@ -175,7 +308,9 @@ export default function Classes() {
             { icon: "🌿", label: "Peaceful Environment" },
           ].map((item) => (
             <div className="facility-card" key={item.label}>
-              <div className="fc-icon" aria-hidden="true">{item.icon}</div>
+              <div className="fc-icon" aria-hidden="true">
+                {item.icon}
+              </div>
               <div className="fc-label">{item.label}</div>
             </div>
           ))}
@@ -216,11 +351,55 @@ export default function Classes() {
           <span className="section-tag">Achievements</span>
           <h2 className="section-title">Our Year-Wise Results</h2>
           <div className="gold-line" />
+          <p className="section-sub">Consistent excellence across State Board & CBSE for 20+ years</p>
         </div>
-        <div className="results-grid">
-          <div className="result-card"><div className="result-year">2024 Board Exam</div><span className="result-pct">95%</span><div className="result-label">Distinction Results</div></div>
-          <div className="result-card"><div className="result-year">2023 Board Exam</div><span className="result-pct">92%</span><div className="result-label">Distinction Results</div></div>
-          <div className="result-card"><div className="result-year">2022 Board Exam</div><span className="result-pct">90%</span><div className="result-label">Distinction Results</div></div>
+
+        <div className="stats-bar">
+          <div className="stat-pill">
+            <div className="stat-num">20+</div>
+            <div className="stat-lbl">Years of Results</div>
+          </div>
+          <div className="stat-pill">
+            <div className="stat-num">95%+</div>
+            <div className="stat-lbl">Top Scores</div>
+          </div>
+          <div className="stat-pill">
+            <div className="stat-num">100s</div>
+            <div className="stat-lbl">Distinctions</div>
+          </div>
+          <div className="stat-pill">
+            <div className="stat-num">2</div>
+            <div className="stat-lbl">Boards Covered</div>
+          </div>
+        </div>
+
+        <div className="result-tabs">
+          <button className={`tab-btn ${activeTab === "state" ? "active" : ""}`} onClick={() => setActiveTab("state")}>
+            State Board
+          </button>
+          <button className={`tab-btn ${activeTab === "cbse" ? "active" : ""}`} onClick={() => setActiveTab("cbse")}>
+            CBSE
+          </button>
+        </div>
+
+        <div className="year-carousel">
+          <button type="button" className="carousel-btn carousel-prev" onClick={handlePrev} aria-label="Show previous result">
+            ‹
+          </button>
+          <div className="year-grid" ref={yearGridRef}>
+            {results.map((item) => (
+              <div className="year-card" key={item.year} onClick={() => setLightbox(item)}>
+                <img src={item.src} alt={`Result ${item.year}`} />
+                <div className="yc-label">
+                  <div className="yc-year">{item.year}</div>
+                  <div className="yc-board">{activeTab === "state" ? "State Board" : "CBSE"} Result</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button type="button" className="carousel-btn carousel-next" onClick={handleNext} aria-label="Show next result">
+            ›
+          </button>
         </div>
       </section>
 
@@ -231,7 +410,14 @@ export default function Classes() {
           <div className="gold-line" />
         </div>
         <div className="courses-grid">
-          {["8th Standard", "9th Standard", "10th Standard (SSC)", "Science Stream", "Commerce Stream", "Board Exam Prep"].map((course) => (
+          {[
+            "8th Standard",
+            "9th Standard",
+            "10th Standard (SSC)",
+            "Science Stream",
+            "Commerce Stream",
+            "Board Exam Prep",
+          ].map((course) => (
             <div className="course-card" key={course}>
               <h3>{course}</h3>
               <p>Comprehensive coaching with regular tests, revision, and concept-based teaching.</p>
@@ -283,8 +469,12 @@ export default function Classes() {
         <div className="gold-line" />
         <p className="section-sub">Join thousands of successful students. Book your free demo class today.</p>
         <div className="hero-btns">
-          <a href="#contact" className="classes-btn-primary">Contact Now</a>
-          <a href="#contact" className="classes-btn-outline">Enroll Today</a>
+          <a href="#contact" className="classes-btn-primary">
+            Contact Now
+          </a>
+          <a href="#contact" className="classes-btn-outline">
+            Enroll Today
+          </a>
         </div>
       </section>
 
@@ -302,7 +492,9 @@ export default function Classes() {
             <h3>Find Us Here</h3>
             <ul className="contact-items">
               <li className="contact-item">
-                <span className="contact-item-icon" aria-hidden="true">📍</span>
+                <span className="contact-item-icon" aria-hidden="true">
+                  📍
+                </span>
                 <div>
                   <span className="contact-item-label">Address</span>
                   <p className="contact-item-value">
@@ -311,7 +503,9 @@ export default function Classes() {
                 </div>
               </li>
               <li className="contact-item">
-                <span className="contact-item-icon" aria-hidden="true">📞</span>
+                <span className="contact-item-icon" aria-hidden="true">
+                  📞
+                </span>
                 <div>
                   <span className="contact-item-label">Phone</span>
                   <p className="contact-item-value">
@@ -320,7 +514,9 @@ export default function Classes() {
                 </div>
               </li>
               <li className="contact-item">
-                <span className="contact-item-icon" aria-hidden="true">💬</span>
+                <span className="contact-item-icon" aria-hidden="true">
+                  💬
+                </span>
                 <div>
                   <span className="contact-item-label">WhatsApp</span>
                   <p className="contact-item-value">
@@ -332,7 +528,9 @@ export default function Classes() {
                 </div>
               </li>
               <li className="contact-item">
-                <span className="contact-item-icon" aria-hidden="true">✉️</span>
+                <span className="contact-item-icon" aria-hidden="true">
+                  ✉️
+                </span>
                 <div>
                   <span className="contact-item-label">Email</span>
                   <p className="contact-item-value">
@@ -341,16 +539,18 @@ export default function Classes() {
                 </div>
               </li>
               <li className="contact-item">
-                <span className="contact-item-icon" aria-hidden="true">🕐</span>
+                <span className="contact-item-icon" aria-hidden="true">
+                  🕐
+                </span>
                 <div>
-  <span className="contact-item-label">Timings</span>
-  <div className="contact-item-value">
-    <p>Mon – Sat</p>
-    <p>8:00 AM – 2:00 PM</p>
-    <p>5:00 PM – 8:00 PM</p>
-    <p>Sunday: Holiday</p>
-  </div>
-</div>
+                  <span className="contact-item-label">Timings</span>
+                  <div className="contact-item-value">
+                    <p>Mon – Sat</p>
+                    <p>8:00 AM – 2:00 PM</p>
+                    <p>5:00 PM – 8:00 PM</p>
+                    <p>Sunday: Holiday</p>
+                  </div>
+                </div>
               </li>
             </ul>
             <div className="contact-map-placeholder" aria-label="Google map location">
@@ -371,11 +571,23 @@ export default function Classes() {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="etc-student-name">Student&apos;s Name</label>
-                <input id="etc-student-name" type="text" name="studentName" autoComplete="name" placeholder="Enter full name" />
+                <input
+                  id="etc-student-name"
+                  type="text"
+                  name="studentName"
+                  autoComplete="name"
+                  placeholder="Enter full name"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="etc-parent-name">Parent&apos;s Name</label>
-                <input id="etc-parent-name" type="text" name="parentName" autoComplete="name" placeholder="Enter parent name" />
+                <input
+                  id="etc-parent-name"
+                  type="text"
+                  name="parentName"
+                  autoComplete="name"
+                  placeholder="Enter parent name"
+                />
               </div>
             </div>
             <div className="form-row">
@@ -427,7 +639,7 @@ export default function Classes() {
                 id="etc-message"
                 name="message"
                 rows={4}
-                placeholder="Write your query or anything you&apos;d like us to know..."
+                placeholder="Write your query or anything you'd like us to know..."
               />
             </div>
             <button className="btn-submit" type="button">
@@ -443,7 +655,14 @@ export default function Classes() {
             <img
               src="https://www.gmsetc.in/assets/img/logo_etc.png"
               alt="Expert Tutorial Center Logo"
-              style={{ height: "48px", width: "48px", objectFit: "contain", borderRadius: "8px", background: "#fff", padding: "3px" }}
+              style={{
+                height: "48px",
+                width: "48px",
+                objectFit: "contain",
+                borderRadius: "8px",
+                background: "#fff",
+                padding: "3px",
+              }}
             />
             <div className="logo-text">
               <strong>Expert Tutorial Center</strong>
@@ -466,4 +685,3 @@ export default function Classes() {
     </div>
   );
 }
-
