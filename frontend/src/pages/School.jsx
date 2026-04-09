@@ -792,7 +792,7 @@ export default function School() {
                   <div>
                     <div className="contact-item-label">Address</div>
                     <div className="contact-item-value">
-                      372, Mhada Colony, Behind AS Club,Chhatrapati Sambhajinagar, Maharashtra 431136
+                       Mhada Colony, Behind A S. Club,Chhatrapati Sambhajinagar, Maharashtra 431136
                     </div>
                   </div>
                 </div>

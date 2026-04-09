@@ -306,7 +306,7 @@ export default function Classes() {
                 <div>
                   <span className="contact-item-label">Address</span>
                   <p className="contact-item-value">
-                    Expert Tuition Center, Near ABC Chowk, Aurangabad, Maharashtra – 431001
+                    Expert Tuition Center, Mhada Colony, Behind A S. Club,Chhatrapati Sambhajinagar, Maharashtra 431136
                   </p>
                 </div>
               </li>
