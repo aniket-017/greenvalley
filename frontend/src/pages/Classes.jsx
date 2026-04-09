@@ -67,8 +67,15 @@ export default function Classes() {
   }, []);
 
   useEffect(() => {
+    // Initialize carousel to show first card from the start
     if (yearGridRef.current) {
-      yearGridRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      yearGridRef.current.scrollLeft = 0;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (yearGridRef.current) {
+      yearGridRef.current.scrollLeft = 0;
     }
     setCarouselIndex(0);
   }, [activeTab]);
@@ -367,10 +374,10 @@ export default function Classes() {
             <div className="stat-num">100s</div>
             <div className="stat-lbl">Distinctions</div>
           </div>
-          <div className="stat-pill">
+          {/* <div className="stat-pill">
             <div className="stat-num">2</div>
             <div className="stat-lbl">Boards Covered</div>
-          </div>
+          </div> */}
         </div>
 
         <div className="result-tabs">
