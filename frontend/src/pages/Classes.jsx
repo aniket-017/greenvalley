@@ -383,7 +383,12 @@ export default function Classes() {
         </div>
 
         <div className="year-carousel">
-          <button type="button" className="carousel-btn carousel-prev" onClick={handlePrev} aria-label="Show previous result">
+          <button
+            type="button"
+            className="carousel-btn carousel-prev"
+            onClick={handlePrev}
+            aria-label="Show previous result"
+          >
             ‹
           </button>
           <div className="year-grid" ref={yearGridRef}>
@@ -397,7 +402,12 @@ export default function Classes() {
               </div>
             ))}
           </div>
-          <button type="button" className="carousel-btn carousel-next" onClick={handleNext} aria-label="Show next result">
+          <button
+            type="button"
+            className="carousel-btn carousel-next"
+            onClick={handleNext}
+            aria-label="Show next result"
+          >
             ›
           </button>
         </div>
