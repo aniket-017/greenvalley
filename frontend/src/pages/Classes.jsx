@@ -179,13 +179,13 @@ export default function Classes() {
       <section id="about">
         <div className="center">
           <span className="section-tag">Our Story</span>
-          <h2 className="section-title">About Expert Tuition Center</h2>
+          <h2 className="section-title">About Expert Tutorial Center</h2>
           <div className="gold-line" />
         </div>
         <div className="about-grid">
           <div className="about-story">
             <p>
-              <strong>Expert Tuition Center</strong> was founded in 2011 with a simple but powerful belief - every
+              <strong>Expert Tutorial Center</strong> was founded in 2011 with a simple but powerful belief - every
               student deserves quality education in a stress-free environment.
             </p>
             <p>
@@ -278,7 +278,7 @@ export default function Classes() {
           <div className="solution-box">
             <h3>Our Solution ✅</h3>
             <p>
-              At Expert Tuition Center, we go beyond rote learning. We identify each student&apos;s weak spots and build
+              At Expert Tutorial Center, we go beyond rote learning. We identify each student&apos;s weak spots and build
               a solid foundation through concept-based, stress-free teaching.
             </p>
             <ul className="solution-list">
@@ -515,7 +515,7 @@ export default function Classes() {
                 <div>
                   <span className="contact-item-label">Address</span>
                   <p className="contact-item-value">
-                    Expert Tuition Center, Mhada Colony, Behind A S. Club,Chhatrapati Sambhajinagar, Maharashtra 431136
+                    Expert Tutorial Center, Mhada Colony, Behind A S. Club,Chhatrapati Sambhajinagar, Maharashtra 431136
                   </p>
                 </div>
               </li>
