@@ -8,6 +8,7 @@ import state1920 from "../assets/state/state 19-20.jpeg";
 import state2223 from "../assets/state/state 22-23.jpeg";
 import state2324 from "../assets/state/state 23-24.jpeg";
 import state2425 from "../assets/state/state 24-25.jpeg";
+import state2526 from "../assets/state/state 25-26.jpeg";
 import cbse1920 from "../assets/cbse/cbse 19-20.jpeg";
 import cbse2021 from "../assets/cbse/cbse 20-21.jpeg";
 import cbse2223 from "../assets/cbse/cbse 22-23.jpeg";
@@ -21,6 +22,7 @@ const stateResults = [
   { year: "2022–23", src: state2223 },
   { year: "2023–24", src: state2324 },
   { year: "2024–25", src: state2425 },
+  { year: "2025–26", src: state2526 },
 ];
 
 const cbseResults = [
