@@ -269,7 +269,7 @@ export default function School() {
             <div className="icon">🕐</div>Mon – Sat &nbsp;8 AM – 2PM
           </div>
           <div className="topbar-item">
-            <div className="icon">📍</div>372, Near Datta Mandir, Behind A.S. Club, Chhatrapati Sambhajinagar
+            <div className="icon">📍</div> Mhada colony, Behind A.S. Club, Chh Sambhajinagar
           </div>
         </div>
       </div>
@@ -792,7 +792,7 @@ export default function School() {
                   <div>
                     <div className="contact-item-label">Address</div>
                     <div className="contact-item-value">
-                       Mhada Colony, Behind A S. Club,Chhatrapati Sambhajinagar, Maharashtra 431136
+                    Greenvalley School, Mhada Colony, Behind A S. Club,Chhatrapati Sambhajinagar, Maharashtra 431136
                     </div>
                   </div>
                 </div>
