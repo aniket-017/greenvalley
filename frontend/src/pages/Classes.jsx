@@ -33,6 +33,38 @@ const cbseResults = [
   { year: "2024–25", src: cbse2425 },
 ];
 
+const courseBoards = ["SSC (State Board)", "CBSE"];
+
+const courses = [
+  {
+    id: "early",
+    icon: "🌱",
+    grades: "Pre-primary – Grade 4",
+    title: "Mother Teacher Model",
+    description:
+      "One dedicated teacher guides the same group across core subjects—building trust, continuity, and strong fundamentals in a nurturing classroom.",
+    highlights: ["Single teacher throughout the day", "Personal attention & care", "Strong early-year foundations"],
+  },
+  {
+    id: "middle",
+    icon: "🔗",
+    grades: "Grades 5 – 8",
+    title: "Integrated Classroom",
+    description:
+      "Students learn in a single, well-coordinated classroom where teachers work together—linking concepts across subjects and supporting steady growth through middle school.",
+    highlights: ["Connected learning across subjects", "Coordinated teacher team", "Steady middle-school progress"],
+  },
+  {
+    id: "secondary",
+    icon: "🎓",
+    grades: "Grades 9 & 10",
+    title: "Specialist Faculty & Dual Boards",
+    description:
+      "Each subject is taught by a dedicated specialist in its own classroom. Separate batches for Maharashtra State Board (SSC) and CBSE ensure focused, board-specific preparation.",
+    highlights: ["Dedicated teacher per subject", "Separate subject classrooms", "Board-focused exam preparation"],
+  },
+];
+
 export default function Classes() {
   const heroStats = [
     { value: 22, suffix: "", label: "Smart Classrooms" },
@@ -116,7 +148,7 @@ export default function Classes() {
           />
           <div className="logo-text">
             <strong>Expert Tutorial Center</strong>
-            <span>Est. 2011 - Aurangabad</span>
+            <span>Est. 2011 - Chhatrapati Sambhajinagar</span>
           </div>
         </a>
         <ul className="nav-links">
@@ -422,25 +454,40 @@ export default function Classes() {
         </div>
       </section>
 
-      <section id="courses">
+      <section id="courses" className="courses-section">
         <div className="center">
           <span className="section-tag">Programs</span>
           <h2 className="section-title">Courses We Offer</h2>
           <div className="gold-line" />
+          <p className="section-sub">
+            A clear learning path from early years through board exams—designed to grow with your child at every stage.
+          </p>
         </div>
         <div className="courses-grid">
-          {[
-            "8th Standard",
-            "9th Standard",
-            "10th Standard (SSC)",
-            "Science Stream",
-            "Commerce Stream",
-            "Board Exam Prep",
-          ].map((course) => (
-            <div className="course-card" key={course}>
-              <h3>{course}</h3>
-              <p>Comprehensive coaching with regular tests, revision, and concept-based teaching.</p>
-            </div>
+          {courses.map((course, index) => (
+            <article className="course-card" key={course.id}>
+              <span className="course-step" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="course-icon" aria-hidden="true">
+                {course.icon}
+              </div>
+              <span className="course-grades">{course.grades}</span>
+              <h3>{course.title}</h3>
+              <p>{course.description}</p>
+              <ul className="course-highlights">
+                {course.highlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <div className="course-boards">
+                {courseBoards.map((board) => (
+                  <span className="course-board-tag" key={board}>
+                    {board}
+                  </span>
+                ))}
+              </div>
+            </article>
           ))}
         </div>
       </section>
