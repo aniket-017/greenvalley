@@ -28,6 +28,8 @@ import photoSarikaNikam from "../assets/teacher/sarika-nikam.jpeg";
 import photoSavitaPawar from "../assets/teacher/savita-pawar.jpeg";
 import photoShitalGore from "../assets/teacher/shital-gore.jpeg";
 import photoShitalMali from "../assets/teacher/shital-mali.jpeg";
+import photoMonikaGholap from "../assets/teacher/monika-gholap.jpeg";
+import photoSarojKanwar from "../assets/teacher/saroj-kanwar.jpeg";
 
 import photoAnusayaTai from "../assets/helpers/anusaya-tai.jpeg";
 import photoPallawaiTai from "../assets/helpers/pallawai-tai.jpeg";
@@ -63,49 +65,58 @@ const newspaperImages = Object.entries(newspaperImagesMap)
   .map((item) => item.url);
 
 const languagesHumanitiesTeachers = [
-  { id: "lang-antra-bera", name: "Ms. Antra Bera", subject: "English", photo: photoAntraBera },
-  { id: "lang-dipti-atre", name: "Ms. Dipti Atre", subject: "Marathi (HOD Secondary)", photo: photoDiptiAtre },
-  { id: "lang-jaishree-shirsat", name: "Ms. Jaishree Shirsat", subject: "Marathi", photo: photoJaishreeShirsat },
-  { id: "lang-pratibha-shelke", name: "Ms. Pratibha Shelke", subject: "Marathi", photo: photoPratibhaShelke },
-  { id: "lang-sonu-pooniya", name: "Ms. Sonu Pooniya", subject: "Hindi", photo: photoSonuPooniya },
-  { id: "lang-swati-shekhawat", name: "Ms. Swati Shekhawat", subject: "Social Studies", photo: photoSwatiShekhawat },
+  
+  { id: "lang-dipti-atre", name: "Mrs. Dipti Atre", subject: "Marathi (HOD Secondary)", photo: photoDiptiAtre },
+  { id: "lang-jaishree-shirsat", name: "Mrs. Jayshree Shirsath", subject: "Marathi", photo: photoJaishreeShirsat },
+  { id: "lang-pratibha-shelke", name: "Mrs. Pratibha Shelke", subject: "Marathi", photo: photoPratibhaShelke },
+  { id: "lang-sonu-pooniya", name: "Mrs. Sonu Pooniya", subject: "Hindi", photo: photoSonuPooniya },
+  { id: "lang-swati-shekhawat", name: "Miss. Swati Shekhawat", subject: "Social Studies (vp)", photo: photoSwatiShekhawat },
+  { id: "lang-saoj-kanwar", name: "Mrs. Saroj Kanwar", subject: "Hindi", photo: photoSarojKanwar },
+  { id: "lang-swati-shekhawat", name: "Miss. Anek Rathore", subject: "English", photo: photoSwatiShekhawat },
+
+  { id: "lang-swati-shekhawat", name: "Mrs. Ekta Bais (Upper Pri. Coord.)", subject: "English", photo: photoSwatiShekhawat },
+  { id: "lang-swati-shekhawat", name: "Mrs. Anushka Gupta (Secondary Coord.)", subject: "English", photo: photoSwatiShekhawat },
 ];
 
 const scienceMathTeachers = [
+{ id: "lang-antra-bera", name: "Miss. Antara Bera", subject: "Science", photo: photoAntraBera },
   {
     id: "sci-akshita-kanwar",
-    name: "Ms. Akshita Kanwar",
+    name: "Mrs. Akshita Kanwar",
     subject: "Science (HOD Primary Section)",
     photo: photoAkshitaKanwar,
   },
-  { id: "sci-kushbu-shekhawat", name: "Ms. Kushbu Shekhawat", subject: "Science", photo: photoKushbuShekhawat },
-  { id: "sci-namrta-gedam", name: "Ms. Namrta Gedam", subject: "Science", photo: photoNamrtaGedam },
-  { id: "sci-sonali-shahane", name: "Ms. Sonali Shahane", subject: "Maths", photo: photoSonaliShahane },
+  { id: "sci-kushbu-shekhawat", name: "Miss. Khushbu Shekhawat", subject: "Science", photo: photoKushbuShekhawat },
+     { id: "lang-swati-shekhawat", name: "Miss. Rashmi Chaudhari", subject: "Science", photo: photoSwatiShekhawat },
+  { id: "sci-namrta-gedam", name: "Mrs. Namrata Gedam", subject: "Science", photo: photoNamrtaGedam },
+  { id: "sci-sonali-shahane", name: "Mrs. Sonali Shahane", subject: "Maths", photo: photoSonaliShahane },
 ];
 
 const artMusicTechTeachers = [
   { id: "amt-rahul-patil", name: "Mr. Rahul Patil", subject: "Sports", photo: photoRahulPatil },
   { id: "amt-shyam-pawar", name: "Mr. Shyam Pawar", subject: "Dance", photo: photoShyamPawar },
+  { id: "amt-shyam-pawar", name: "Mstr. Shubham Pere", subject: "ICT", photo: photoShyamPawar },
 ];
 
 const prePrimaryTeachers = [
-  { id: "pp-dipti-waghmare", name: "Ms. Dipti Waghmare", subject: "Mother Teacher", photo: photoDiptiWaghmare },
-  { id: "pp-jyoti-sant", name: "Ms. Jyoti Sant", subject: "Mother Teacher", photo: photoJyotiSant },
-  { id: "pp-kiran-kapse", name: "Ms. Kiran Kapse", subject: "Mother Teacher", photo: photoKiranKapse },
-  { id: "pp-neha-wagh", name: "Ms. Neha Wagh", subject: "Mother Teacher", photo: photoNehaWagh },
-  { id: "pp-rupa-khajekar", name: "Ms. Rupa Khajekar", subject: "Reception", photo: photoRupaKhajekar },
-  { id: "pp-sarika-nikam", name: "Ms. Sarika Nikam", subject: "Mother Teacher", photo: photoSarikaNikam },
-  { id: "pp-savita-pawar", name: "Ms. Savita Pawar", subject: "Mother Teacher", photo: photoSavitaPawar },
-  { id: "pp-shital-gore", name: "Ms. Shital Gore", subject: "Mother Teacher", photo: photoShitalGore },
-  { id: "pp-shital-mali", name: "Ms. Shital Mali", subject: "Mother Teacher", photo: photoShitalMali },
+  { id: "pp-dipti-waghmare", name: "Mrs. Dipti Waghmare", subject: "Mother Teacher", photo: photoDiptiWaghmare },
+  { id: "pp-jyoti-sant", name: "Mrs. Jyoti Sant", subject: "Mother Teacher", photo: photoJyotiSant },
+  { id: "pp-kiran-kapse", name: "Mrs. Kiran Kapse", subject: "Mother Teacher", photo: photoKiranKapse },
+  { id: "pp-neha-wagh", name: "Mrs. Neha Wagh", subject: "Mother Teacher", photo: photoNehaWagh },
+  { id: "pp-rupa-khajekar", name: "Mrs. Rupa Khajekar", subject: "Reception", photo: photoRupaKhajekar },
+  { id: "pp-sarika-nikam", name: "Mrs. Sarika Nikam", subject: "Mother Teacher", photo: photoSarikaNikam },
+  { id: "pp-savita-pawar", name: "Mrs. Savita Pawar", subject: "Mother Teacher", photo: photoSavitaPawar },
+  { id: "pp-shital-gore", name: "Mrs. Shital Gore", subject: "Mother Teacher", photo: photoShitalGore },
+  { id: "pp-shital-mali", name: "Mrs. Sheetal Mali", subject: "Mother Teacher", photo: photoShitalMali },
+  { id: "pp-monika-gholap", name: "Mrs. Monika Gholap", subject: "Mother Teacher", photo: photoMonikaGholap },
 ];
 
 const supportStaff = [
-  { id: "staff-anusaya-tai", name: "Ms. Anusaya Tai", subject: "School Attendant", photo: photoAnusayaTai },
-  { id: "staff-pallawai-tai", name: "Ms. Pallawai Tai", subject: "School Attendant", photo: photoPallawaiTai },
-  { id: "staff-sangita-tai", name: "Ms. Sangita Tai", subject: "School Attendant", photo: photoSangitaTai },
-  { id: "staff-sarika-tai", name: "Ms. Sarika Tai", subject: "School Attendant", photo: photoSarikaTaiStaff },
-  { id: "staff-shital-tai", name: "Ms. Shital Tai", subject: "School Attendant", photo: photoShitalTaiStaff },
+  { id: "staff-anusaya-tai", name: "Mrs. Anusaya Tai", subject: "School Attendant", photo: photoAnusayaTai },
+  // { id: "staff-pallawai-tai", name: "Mrs. Pallawai Tai", subject: "School Attendant", photo: photoPallawaiTai },
+  { id: "staff-sangita-tai", name: "Mrs. Sangita Tai", subject: "School Attendant", photo: photoSangitaTai },
+  { id: "staff-sarika-tai", name: "Mrs. Sarika Tai", subject: "School Attendant", photo: photoSarikaTaiStaff },
+  { id: "staff-shital-tai", name: "Mrs. Shital Tai", subject: "School Attendant", photo: photoShitalTaiStaff },
 ];
 
 function FacultyTeacherCard({ teacher, index, activeTeacher, setActiveTeacher }) {
@@ -572,7 +583,7 @@ export default function School() {
               <div className="message-header">
                 {/* <div className="message-avatar">👩‍💼</div> */}
                 <div className="message-person">
-                  <div className="person-name">Urmila Kanwar Shekhawat</div>
+                  <div className="person-name">Mrs. Urmila Kanwar Shekhawat</div>
                   <div className="person-title">Principal, Greenvalley School Chhatrapati Sambhajinagar</div>
                 </div>
               </div>
