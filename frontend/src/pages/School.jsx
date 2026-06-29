@@ -33,6 +33,7 @@ import photoSarojKanwar from "../assets/teacher/saroj-kanwar.jpeg";
 import photoAnekRathore from "../assets/teacher/anek-rathore.jpeg";
 import photoEktaBais from "../assets/teacher/ekta-bais.jpg";
 import photoRashmiChaudhari from "../assets/teacher/rashmi-chaudhari.jpg";
+import photoAnushkaGupta from "../assets/teacher/anushka-gupta.jpeg";
 
 import photoAnusayaTai from "../assets/helpers/anusaya-tai.jpeg";
 import photoPallawaiTai from "../assets/helpers/pallawai-tai.jpeg";
@@ -78,7 +79,7 @@ const languagesHumanitiesTeachers = [
   { id: "lang-swati-shekhawat", name: "Miss. Anek Rathore", subject: "English", photo: photoAnekRathore },
 
   { id: "lang-swati-shekhawat", name: "Mrs. Ekta Bais (Upper Pri. Coord.)", subject: "English", photo: photoEktaBais },
-  { id: "lang-swati-shekhawat", name: "Mrs. Anushka Gupta (Secondary Coord.)", subject: "English", photo: photoSwatiShekhawat },
+  { id: "lang-swati-shekhawat", name: "Mrs. Anushka Gupta (Secondary Coord.)", subject: "English", photo: photoAnushkaGupta },
 ];
 
 const scienceMathTeachers = [
