@@ -99,7 +99,7 @@ const scienceMathTeachers = [
 const artMusicTechTeachers = [
   { id: "amt-rahul-patil", name: "Mr. Rahul Patil", subject: "Sports", photo: photoRahulPatil },
   { id: "amt-shyam-pawar", name: "Mr. Shyam Pawar", subject: "Dance", photo: photoShyamPawar },
-  { id: "amt-shyam-pawar", name: "Mstr. Shubham Pere", subject: "ICT", photo: photoShyamPawar },
+  // { id: "amt-shyam-pawar", name: "Mstr. Shubham Pere", subject: "ICT", photo: photoShyamPawar },
 ];
 
 const prePrimaryTeachers = [
