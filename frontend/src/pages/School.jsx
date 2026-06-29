@@ -30,6 +30,9 @@ import photoShitalGore from "../assets/teacher/shital-gore.jpeg";
 import photoShitalMali from "../assets/teacher/shital-mali.jpeg";
 import photoMonikaGholap from "../assets/teacher/monika-gholap.jpeg";
 import photoSarojKanwar from "../assets/teacher/saroj-kanwar.jpeg";
+import photoAnekRathore from "../assets/teacher/anek-rathore.jpeg";
+import photoEktaBais from "../assets/teacher/ekta-bais.jpg";
+import photoRashmiChaudhari from "../assets/teacher/rashmi-chaudhari.jpg";
 
 import photoAnusayaTai from "../assets/helpers/anusaya-tai.jpeg";
 import photoPallawaiTai from "../assets/helpers/pallawai-tai.jpeg";
@@ -72,9 +75,9 @@ const languagesHumanitiesTeachers = [
   { id: "lang-sonu-pooniya", name: "Mrs. Sonu Pooniya", subject: "Hindi", photo: photoSonuPooniya },
   { id: "lang-swati-shekhawat", name: "Miss. Swati Shekhawat", subject: "Social Studies (vp)", photo: photoSwatiShekhawat },
   { id: "lang-saoj-kanwar", name: "Mrs. Saroj Kanwar", subject: "Hindi", photo: photoSarojKanwar },
-  { id: "lang-swati-shekhawat", name: "Miss. Anek Rathore", subject: "English", photo: photoSwatiShekhawat },
+  { id: "lang-swati-shekhawat", name: "Miss. Anek Rathore", subject: "English", photo: photoAnekRathore },
 
-  { id: "lang-swati-shekhawat", name: "Mrs. Ekta Bais (Upper Pri. Coord.)", subject: "English", photo: photoSwatiShekhawat },
+  { id: "lang-swati-shekhawat", name: "Mrs. Ekta Bais (Upper Pri. Coord.)", subject: "English", photo: photoEktaBais },
   { id: "lang-swati-shekhawat", name: "Mrs. Anushka Gupta (Secondary Coord.)", subject: "English", photo: photoSwatiShekhawat },
 ];
 
@@ -87,7 +90,7 @@ const scienceMathTeachers = [
     photo: photoAkshitaKanwar,
   },
   { id: "sci-kushbu-shekhawat", name: "Miss. Khushbu Shekhawat", subject: "Science", photo: photoKushbuShekhawat },
-     { id: "lang-swati-shekhawat", name: "Miss. Rashmi Chaudhari", subject: "Science", photo: photoSwatiShekhawat },
+     { id: "lang-swati-shekhawat", name: "Miss. Rashmi Chaudhari", subject: "Science", photo: photoRashmiChaudhari },
   { id: "sci-namrta-gedam", name: "Mrs. Namrata Gedam", subject: "Science", photo: photoNamrtaGedam },
   { id: "sci-sonali-shahane", name: "Mrs. Sonali Shahane", subject: "Maths", photo: photoSonaliShahane },
 ];
