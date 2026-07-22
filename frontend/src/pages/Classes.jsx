@@ -914,7 +914,7 @@ export default function Classes() {
         <div className="footer-inner">
           <a href="#hero" className="logo footer-logo">
             <img
-              src="https://www.gmsetc.in/assets/img/logo_etc.png"
+              src={etc}
               alt="Expert Tutorial Center Logo"
               style={{
                 height: "48px",
