@@ -8,6 +8,7 @@ import {
   deleteTeacher,
   deleteTeacherPhoto,
   fetchAdminFaculty,
+  reorderSections,
   updateSection,
   updateTeacher,
   uploadTeacherPhoto,
@@ -29,6 +30,8 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingTeacherId, setUploadingTeacherId] = useState(null);
+  const [draggingSectionId, setDraggingSectionId] = useState(null);
+  const [dragOverSectionId, setDragOverSectionId] = useState(null);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
@@ -117,6 +120,64 @@ export default function AdminDashboard() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const persistSectionOrder = async (nextSections) => {
+    const previous = sections;
+    setSections(nextSections);
+    setSaving(true);
+    setError('');
+    try {
+      const data = await reorderSections(nextSections.map((section) => section.id));
+      setSections(data.sections || nextSections);
+      setMessage('Section order saved.');
+    } catch (err) {
+      setSections(previous);
+      setError(err.message || 'Failed to save section order');
+    } finally {
+      setSaving(false);
+      setDraggingSectionId(null);
+      setDragOverSectionId(null);
+    }
+  };
+
+  const handleSectionDragStart = (event, sectionId) => {
+    if (editingSectionId) return;
+    setDraggingSectionId(sectionId);
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', sectionId);
+  };
+
+  const handleSectionDragOver = (event, sectionId) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    if (sectionId !== dragOverSectionId) {
+      setDragOverSectionId(sectionId);
+    }
+  };
+
+  const handleSectionDrop = async (event, targetSectionId) => {
+    event.preventDefault();
+    const sourceId = draggingSectionId || event.dataTransfer.getData('text/plain');
+    if (!sourceId || sourceId === targetSectionId) {
+      setDraggingSectionId(null);
+      setDragOverSectionId(null);
+      return;
+    }
+
+    const fromIndex = sections.findIndex((section) => section.id === sourceId);
+    const toIndex = sections.findIndex((section) => section.id === targetSectionId);
+    if (fromIndex < 0 || toIndex < 0) return;
+
+    const nextSections = [...sections];
+    const [moved] = nextSections.splice(fromIndex, 1);
+    nextSections.splice(toIndex, 0, moved);
+    await persistSectionOrder(nextSections);
+  };
+
+  const handleSectionDragEnd = () => {
+    setDraggingSectionId(null);
+    setDragOverSectionId(null);
   };
 
   const handleCreateTeacher = async (event) => {
@@ -243,7 +304,9 @@ export default function AdminDashboard() {
         <div className="admin-layout">
           <section className="admin-panel">
             <h2>Sections</h2>
-            <p className="admin-help">Create groups like Mathematics or Coordination &amp; Admin.</p>
+            <p className="admin-help">
+              Create groups like Mathematics or Coordination &amp; Admin. Drag the handle to change order.
+            </p>
 
             <form className="admin-inline-form" onSubmit={handleCreateSection}>
               <input
@@ -262,7 +325,12 @@ export default function AdminDashboard() {
               {sections.map((section) => (
                 <li
                   key={section.id}
-                  className={`admin-list-item ${selectedSectionId === section.id ? 'active' : ''}`}
+                  className={`admin-list-item ${selectedSectionId === section.id ? 'active' : ''} ${
+                    draggingSectionId === section.id ? 'dragging' : ''
+                  } ${dragOverSectionId === section.id ? 'drag-over' : ''}`}
+                  onDragOver={(event) => handleSectionDragOver(event, section.id)}
+                  onDrop={(event) => handleSectionDrop(event, section.id)}
+                  onDragEnd={handleSectionDragEnd}
                 >
                   {editingSectionId === section.id ? (
                     <div className="admin-edit-row">
@@ -289,6 +357,17 @@ export default function AdminDashboard() {
                     </div>
                   ) : (
                     <>
+                      <button
+                        type="button"
+                        className="admin-drag-handle"
+                        draggable
+                        title="Drag to reorder"
+                        aria-label={`Drag to reorder ${section.title}`}
+                        onDragStart={(event) => handleSectionDragStart(event, section.id)}
+                        onClick={(event) => event.preventDefault()}
+                      >
+                        ⋮⋮
+                      </button>
                       <button
                         type="button"
                         className="admin-select-btn"

@@ -58,6 +58,30 @@ router.post('/sections', async (req, res) => {
   }
 });
 
+router.put('/sections/reorder', async (req, res) => {
+  try {
+    const orderedIds = Array.isArray(req.body?.orderedIds) ? req.body.orderedIds.map(String) : [];
+    if (!orderedIds.length) {
+      return res.status(400).json({ error: 'orderedIds array is required' });
+    }
+
+    const sections = await Section.find({ _id: { $in: orderedIds } });
+    if (sections.length !== orderedIds.length) {
+      return res.status(400).json({ error: 'One or more section ids are invalid' });
+    }
+
+    await Promise.all(
+      orderedIds.map((id, index) => Section.updateOne({ _id: id }, { $set: { sortOrder: index } })),
+    );
+
+    const updated = await getFacultyTree();
+    return res.json({ sections: updated });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Failed to reorder sections' });
+  }
+});
+
 router.put('/sections/:id', async (req, res) => {
   try {
     const section = await Section.findById(req.params.id);

@@ -83,6 +83,13 @@ export function deleteSection(id) {
   return request(`/api/admin/sections/${id}`, { method: 'DELETE' });
 }
 
+export function reorderSections(orderedIds) {
+  return request('/api/admin/sections/reorder', {
+    method: 'PUT',
+    body: JSON.stringify({ orderedIds }),
+  });
+}
+
 export function createTeacher(payload) {
   return request('/api/admin/teachers', {
     method: 'POST',
