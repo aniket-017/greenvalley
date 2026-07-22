@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Classes.css";
 import { fetchPublicFaculty } from "../api/admin";
+import { openWhatsAppInquiry, WHATSAPP_INQUIRY_NUMBER } from "../utils/whatsapp";
 import etc from "../assets/etc.png";
 import state1718 from "../assets/state/state 17-18.jpeg";
 import state1819 from "../assets/state/state 18-19.jpeg";
@@ -117,6 +118,17 @@ export default function Classes() {
   const [lightbox, setLightbox] = useState(null);
   const yearGridRef = useRef(null);
 
+  const initialInquiryForm = {
+    studentName: "",
+    parentName: "",
+    phone: "",
+    standard: "1st",
+    message: "",
+  };
+  const [inquiryForm, setInquiryForm] = useState(initialInquiryForm);
+  const [inquiryError, setInquiryError] = useState("");
+  const [inquirySubmitting, setInquirySubmitting] = useState(false);
+
   const results = activeTab === "state" ? stateResults : cbseResults;
 
   useEffect(() => {
@@ -190,6 +202,37 @@ export default function Classes() {
     const offset = Math.floor(container.clientWidth * 0.8);
     container.scrollBy({ left: offset, behavior: "smooth" });
     setCarouselIndex((current) => current + 1);
+  };
+
+  const handleInquiryChange = (event) => {
+    const { name, value } = event.target;
+    setInquiryForm((current) => ({ ...current, [name]: value }));
+    if (inquiryError) setInquiryError("");
+  };
+
+  const handleInquirySubmit = (event) => {
+    event.preventDefault();
+    if (inquirySubmitting) return;
+
+    const trimmedName = inquiryForm.studentName.trim();
+    const trimmedPhone = inquiryForm.phone.trim();
+
+    if (!trimmedName) {
+      setInquiryError("Please enter the student's name.");
+      return;
+    }
+    if (!trimmedPhone) {
+      setInquiryError("Please enter a phone number.");
+      return;
+    }
+    setInquiryError("");
+    setInquirySubmitting(true);
+    openWhatsAppInquiry({
+      ...inquiryForm,
+      studentName: trimmedName,
+      phone: trimmedPhone,
+    });
+    window.setTimeout(() => setInquirySubmitting(false), 1000);
   };
 
   return (
@@ -659,7 +702,11 @@ export default function Classes() {
                 <div>
                   <span className="contact-item-label">WhatsApp</span>
                   <p className="contact-item-value">
-                    <a href="https://wa.me/918055314123" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={`https://wa.me/${WHATSAPP_INQUIRY_NUMBER}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       +91 8055314123
                     </a>
                   </p>
@@ -705,7 +752,7 @@ export default function Classes() {
               />
             </div>
           </div>
-          <div className="inquiry-form">
+          <form className="inquiry-form" onSubmit={handleInquirySubmit} noValidate>
             <h3>Book Your Free Demo Class</h3>
             <div className="form-row">
               <div className="form-group">
@@ -714,8 +761,11 @@ export default function Classes() {
                   id="etc-student-name"
                   type="text"
                   name="studentName"
+                  value={inquiryForm.studentName}
+                  onChange={handleInquiryChange}
                   autoComplete="name"
                   placeholder="Enter full name"
+                  required
                 />
               </div>
               <div className="form-group">
@@ -724,6 +774,8 @@ export default function Classes() {
                   id="etc-parent-name"
                   type="text"
                   name="parentName"
+                  value={inquiryForm.parentName}
+                  onChange={handleInquiryChange}
                   autoComplete="name"
                   placeholder="Enter parent name"
                 />
@@ -732,59 +784,56 @@ export default function Classes() {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="etc-phone">Phone Number</label>
-                <input id="etc-phone" type="tel" name="phone" autoComplete="tel" placeholder="+91 XXXXX XXXXX" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="etc-whatsapp">WhatsApp Number</label>
-                <input id="etc-whatsapp" type="tel" name="whatsapp" autoComplete="tel" placeholder="+91 XXXXX XXXXX" />
-              </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="etc-standard">Current Standard</label>
-                <select id="etc-standard" name="standard" defaultValue="10th">
-                  <option value="8th">8th Standard</option>
-                  <option value="9th">9th Standard</option>
-                  <option value="10th">10th Standard (SSC)</option>
-                  <option value="11th">11th Standard</option>
-                  <option value="12th">12th Standard</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="etc-stream">Stream</label>
-                <select id="etc-stream" name="stream" defaultValue="">
-                  <option value="" disabled>
-                    Select Stream
-                  </option>
-                  <option value="science">Science</option>
-                  <option value="commerce">Commerce</option>
-                  <option value="arts">Arts / Vocational</option>
-                  <option value="general">General (8th–10th)</option>
-                </select>
+                <input
+                  id="etc-phone"
+                  type="tel"
+                  name="phone"
+                  value={inquiryForm.phone}
+                  onChange={handleInquiryChange}
+                  autoComplete="tel"
+                  placeholder="+91 XXXXX XXXXX"
+                  required
+                />
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="etc-subject">Subject of Interest</label>
-              <input
-                id="etc-subject"
-                type="text"
-                name="subject"
-                placeholder="e.g. Mathematics, Science, All Subjects"
-              />
+              <label htmlFor="etc-standard">Current Standard</label>
+              <select
+                id="etc-standard"
+                name="standard"
+                value={inquiryForm.standard}
+                onChange={handleInquiryChange}
+              >
+                <option value="1st">1st Standard</option>
+                <option value="2nd">2nd Standard</option>
+                <option value="3rd">3rd Standard</option>
+                <option value="4th">4th Standard</option>
+                <option value="5th">5th Standard</option>
+                <option value="6th">6th Standard</option>
+                <option value="7th">7th Standard</option>
+                <option value="8th">8th Standard</option>
+                <option value="9th">9th Standard</option>
+                <option value="10th">10th Standard (SSC)</option>
+                <option value="11th">11th Standard</option>
+                <option value="12th">12th Standard</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="etc-message">Message / Query</label>
               <textarea
                 id="etc-message"
                 name="message"
+                value={inquiryForm.message}
+                onChange={handleInquiryChange}
                 rows={4}
                 placeholder="Write your query or anything you'd like us to know..."
               />
             </div>
-            <button className="btn-submit" type="button">
-              Submit Inquiry &amp; Book Free Demo
+            {inquiryError ? <p className="inquiry-form-error">{inquiryError}</p> : null}
+            <button className="btn-submit" type="submit" disabled={inquirySubmitting}>
+              {inquirySubmitting ? "Opening WhatsApp..." : "Submit Inquiry & Book Free Demo"}
             </button>
-          </div>
+          </form>
         </div>
       </section>
 
