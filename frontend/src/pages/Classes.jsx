@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Classes.css";
+import { fetchPublicFaculty } from "../api/admin";
 import etc from "../assets/etc.png";
 import state1718 from "../assets/state/state 17-18.jpeg";
 import state1819 from "../assets/state/state 18-19.jpeg";
@@ -65,14 +66,51 @@ const courses = [
   },
 ];
 
+function TeacherCard({ teacher, index, activeTeacher, setActiveTeacher }) {
+  const isActive = activeTeacher === teacher.id;
+  return (
+    <div
+      className={`teacher-card with-photo ${teacher.ribbonLight ? "ribbon-light" : ""} ${isActive ? "active" : ""}`}
+      style={{ animationDelay: `${(index + 1) * 0.04}s` }}
+      onClick={() => setActiveTeacher(isActive ? null : teacher.id)}
+    >
+      <div className="teacher-photo-zone">
+        {teacher.photo ? (
+          <img src={teacher.photo} alt={teacher.name} />
+        ) : (
+          <div className="teacher-photo-empty" aria-hidden />
+        )}
+      </div>
+
+      <div className="teacher-badge">
+        <svg viewBox="0 0 14 14">
+          <polyline points="2,7 6,11 12,3" />
+        </svg>
+      </div>
+
+      <div className="teacher-ribbon">
+        <div className="teacher-name">{teacher.name}</div>
+        {teacher.subject && <div className="teacher-subject">{teacher.subject}</div>}
+      </div>
+    </div>
+  );
+}
+
 export default function Classes() {
+  const [teacherGroups, setTeacherGroups] = useState([]);
+  const [facultyLoading, setFacultyLoading] = useState(true);
+  const [facultyError, setFacultyError] = useState("");
+  const teacherCount = teacherGroups.reduce((sum, group) => sum + (group.teachers?.length || 0), 0);
+  const displayTeacherCount = teacherCount || 40;
+
   const heroStats = [
     { value: 22, suffix: "", label: "Smart Classrooms" },
-    { value: 27, suffix: "+", label: "Expert Teachers" },
+    { value: displayTeacherCount, suffix: "+", label: "Expert Teachers" },
     { value: 14, suffix: "+", label: "Years Experience" },
     { value: 95, suffix: "%", label: "Distinction 2024" },
   ];
   const [animatedHeroStats, setAnimatedHeroStats] = useState(heroStats.map(() => 0));
+  const [activeTeacher, setActiveTeacher] = useState(null);
 
   const [activeTab, setActiveTab] = useState("state");
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -80,6 +118,30 @@ export default function Classes() {
   const yearGridRef = useRef(null);
 
   const results = activeTab === "state" ? stateResults : cbseResults;
+
+  useEffect(() => {
+    let cancelled = false;
+    setFacultyLoading(true);
+    setFacultyError("");
+
+    fetchPublicFaculty()
+      .then((data) => {
+        if (cancelled) return;
+        setTeacherGroups(data.sections || []);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setFacultyError(err.message || "Unable to load teachers right now.");
+        setTeacherGroups([]);
+      })
+      .finally(() => {
+        if (!cancelled) setFacultyLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const duration = 1500;
@@ -98,7 +160,7 @@ export default function Classes() {
 
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, []);
+  }, [displayTeacherCount]);
 
   useEffect(() => {
     // Initialize carousel to show first card from the start
@@ -161,7 +223,9 @@ export default function Classes() {
           <li>
             <a href="#facilities">Facilities</a>
           </li>
-          {/* <li><a href="#teachers">Teachers</a></li> */}
+          <li>
+            <a href="#teachers">Teachers</a>
+          </li>
           <li>
             <a href="#results">Results</a>
           </li>
@@ -186,7 +250,8 @@ export default function Classes() {
             &amp; Success Is <span className="highlight">Guaranteed</span>
           </h1>
           <p className="hero-sub">
-            <strong>22 Classrooms</strong> • <strong>27 Expert Teachers</strong> • <strong>Thousands of Toppers</strong>
+            <strong>22 Classrooms</strong> • <strong>{displayTeacherCount} Expert Teachers</strong> •{" "}
+            <strong>Thousands of Toppers</strong>
           </p>
           <div className="hero-btns">
             <a href="#contact" className="classes-btn-primary">
@@ -226,7 +291,7 @@ export default function Classes() {
               We began with just <strong>4 classrooms</strong> and a dedicated team of{" "}
               <strong>3 passionate teachers</strong>. Over the past 14 years, we have grown into one of the most trusted
               tuition centers in the region, now featuring <strong>22 modern smart classrooms</strong> and a team of{" "}
-              <strong>27 highly qualified educators</strong>.
+              <strong>{displayTeacherCount} highly qualified educators</strong>.
             </p>
             <p>
               Our mission is to make learning simple, enjoyable, and effective - building not just academic excellence,
@@ -240,7 +305,7 @@ export default function Classes() {
           <div className="stats-grid">
             <div className="stat-card">
               <span className="emoji">👨‍🏫</span>
-              <span className="num">27+</span>
+              <span className="num">{displayTeacherCount}+</span>
               <span className="lbl">Qualified Teachers</span>
             </div>
             <div className="stat-card">
@@ -358,34 +423,42 @@ export default function Classes() {
         </div>
       </section>
 
-      {/* <section id="teachers">
+      <section id="teachers">
         <div className="center">
           <span className="section-tag">Our Team</span>
           <h2 className="section-title">Meet Our Expert Teachers</h2>
           <div className="gold-line" />
-          <p className="section-sub">27+ highly qualified educators dedicated to your child's success.</p>
+          <p className="section-sub">
+            {displayTeacherCount}+ highly qualified educators dedicated to your child&apos;s success.
+          </p>
         </div>
-        <div className="teachers-grid">
-          {[
-            "Mr. Rajesh Kumar",
-            "Mrs. Priya Sharma",
-            "Mr. Amit Patil",
-            "Mrs. Sunita Desai",
-            "Mr. Suresh Jadhav",
-            "Mrs. Kavita Mehta",
-            "Mr. Dinesh Kulkarni",
-            "Mrs. Anjali More",
-          ].map((name) => (
-            <div className="teacher-card" key={name}>
-              <img src="https://img.freepik.com/free-photo/front-view-business-woman-suit_23-2148603018.jpg?semt=ais_hybrid&w=740&q=80" alt={name} />
-              <div className="teacher-info">
-                <div className="teacher-name">{name}</div>
-                <div className="teacher-subject">Subject Specialist</div>
-              </div>
+
+        {facultyLoading ? <p className="section-sub" style={{ textAlign: "center" }}>Loading teachers…</p> : null}
+        {facultyError ? <p className="section-sub" style={{ textAlign: "center" }}>{facultyError}</p> : null}
+
+        {!facultyLoading && !facultyError && teacherGroups.length === 0 ? (
+          <p className="section-sub" style={{ textAlign: "center" }}>
+            Teacher details will appear here soon.
+          </p>
+        ) : null}
+
+        {teacherGroups.map((group) => (
+          <div className="teacher-group" key={group.id}>
+            <h3 className="teacher-group-title">{group.title}</h3>
+            <div className="teachers-grid">
+              {(group.teachers || []).map((teacher, i) => (
+                <TeacherCard
+                  key={teacher.id}
+                  teacher={teacher}
+                  index={i}
+                  activeTeacher={activeTeacher}
+                  setActiveTeacher={setActiveTeacher}
+                />
+              ))}
             </div>
-          ))}
-        </div>
-      </section> */}
+          </div>
+        ))}
+      </section>
 
       <section id="results">
         <div className="center">

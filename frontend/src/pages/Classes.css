@@ -533,34 +533,32 @@
 
 .classes-page .teachers-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
 }
 
-.classes-page .teacher-card {
-  background: var(--white);
-  border-radius: 16px;
-  overflow: hidden;
+.classes-page .teacher-group {
+  margin-top: 48px;
 }
 
-.classes-page .teacher-card img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
+.classes-page .teacher-group:first-of-type {
+  margin-top: 40px;
 }
 
-.classes-page .teacher-info {
-  padding: 16px;
+.classes-page .teacher-group-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0 0 4px;
+  letter-spacing: 0.01em;
 }
 
-.classes-page .teacher-name {
-  font-weight: 700;
-}
-
-.classes-page .teacher-subject {
-  font-size: 0.8rem;
-  color: var(--gold-dark);
+.classes-page .teacher-photo-empty {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(26, 58, 42, 0.07), rgba(26, 58, 42, 0.14));
 }
 
 .classes-page #results {
@@ -1435,7 +1433,10 @@
     gap: 10px;
   }
 
-  .classes-page .teachers-grid,
+  .classes-page .teachers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .classes-page .results-grid,
   .classes-page .courses-grid {
     grid-template-columns: 1fr;

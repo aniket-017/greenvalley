@@ -4,3 +4,9 @@ frontend/build
 
 
 backend/node_modules
+backend/.env
+backend/data/*.db
+backend/data/*.db-*
+!backend/data/.gitkeep
+backend/uploads/teachers/*
+!backend/uploads/teachers/.gitkeep
