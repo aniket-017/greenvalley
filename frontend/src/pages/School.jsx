@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import logoGms from "../assets/gms.png";
+import { openWhatsAppSchoolContact } from "../utils/whatsapp";
 import "./School.css";
 import building from "../assets/building/building.png";
 import diractor from "../assets/building/diractor.png";
@@ -169,6 +170,7 @@ export default function School() {
     if (!target) return;
 
     event.preventDefault();
+    setMobileMenuOpen(false);
     target.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.replaceState(null, "", href);
   };
@@ -198,8 +200,36 @@ export default function School() {
   const [activeNewsIndex, setActiveNewsIndex] = useState(null);
   const [animatedHeroStats, setAnimatedHeroStats] = useState(heroStats.map(() => 0));
 
+  const initialContactForm = {
+    name: "",
+    phone: "",
+    enquiryType: "",
+    message: "",
+  };
+  const [contactForm, setContactForm] = useState(initialContactForm);
+  const [contactError, setContactError] = useState("");
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const totalActivities = activityImages.length;
   const canAutoPlay = totalActivities > 1;
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const duration = 1500;
@@ -266,6 +296,43 @@ export default function School() {
 
   const activeAlt = useMemo(() => `Activity ${activeIndex + 1}`, [activeIndex]);
   const activeNewsImage = activeNewsIndex !== null ? newspaperImages[activeNewsIndex] : null;
+
+  const handleContactChange = (event) => {
+    const { name, value } = event.target;
+    setContactForm((current) => ({ ...current, [name]: value }));
+    if (contactError) setContactError("");
+  };
+
+  const handleContactSubmit = (event) => {
+    event.preventDefault();
+    if (contactSubmitting) return;
+
+    const trimmedName = contactForm.name.trim();
+    const trimmedPhone = contactForm.phone.trim();
+
+    if (!trimmedName) {
+      setContactError("Please enter your name.");
+      return;
+    }
+    if (!trimmedPhone) {
+      setContactError("Please enter a phone number.");
+      return;
+    }
+    if (!contactForm.enquiryType) {
+      setContactError("Please select an enquiry type.");
+      return;
+    }
+
+    setContactError("");
+    setContactSubmitting(true);
+    openWhatsAppSchoolContact({
+      ...contactForm,
+      name: trimmedName,
+      phone: trimmedPhone,
+    });
+    window.setTimeout(() => setContactSubmitting(false), 1000);
+  };
+
   {
     /* TOP BAR */
   }
@@ -290,7 +357,7 @@ export default function School() {
       </div>
 
       {/* NAV */}
-      <nav>
+      <nav className={mobileMenuOpen ? "nav-open" : ""}>
         <div className="nav-inner">
           <a href="#home" className="logo" onClick={handleSmoothAnchorClick}>
             <img src={logoGms} alt="GMS Logo" className="logo-emblem" />
@@ -299,9 +366,23 @@ export default function School() {
               <div className="tagline">Where Learning is Fun</div>
             </div>
           </a>
-          <ul className="nav-links">
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="school-nav-links"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+          <ul className="nav-links" id="school-nav-links">
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+                Home
+              </Link>
             </li>
             <li>
               <a href="#about" onClick={handleSmoothAnchorClick}>
@@ -335,6 +416,14 @@ export default function School() {
             </li>
           </ul>
         </div>
+        {mobileMenuOpen ? (
+          <button
+            type="button"
+            className="nav-backdrop"
+            aria-label="Close navigation menu"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        ) : null}
       </nav>
 
       {/* HERO */}
@@ -826,39 +915,64 @@ export default function School() {
                 />
               </div>
             </div>
-            <div className="contact-form reveal">
+            <form className="contact-form reveal" onSubmit={handleContactSubmit} noValidate>
               <div className="form-title">Send a Message</div>
               <div className="form-subtitle">We&apos;ll get back to you within one working day.</div>
               <div className="form-group">
-                <label>Your Name</label>
-                <input type="text" placeholder="Enter your full name" />
+                <label htmlFor="gms-contact-name">Your Name</label>
+                <input
+                  id="gms-contact-name"
+                  type="text"
+                  name="name"
+                  value={contactForm.name}
+                  onChange={handleContactChange}
+                  placeholder="Enter your full name"
+                  required
+                />
               </div>
               <div className="form-group">
-                <label>Phone Number</label>
-                <input type="tel" placeholder="+91 XXXXX XXXXX" />
+                <label htmlFor="gms-contact-phone">Phone Number</label>
+                <input
+                  id="gms-contact-phone"
+                  type="tel"
+                  name="phone"
+                  value={contactForm.phone}
+                  onChange={handleContactChange}
+                  placeholder="+91 XXXXX XXXXX"
+                  required
+                />
               </div>
               <div className="form-group">
-                <label>Email Address</label>
-                <input type="email" placeholder="your@email.com" />
-              </div>
-              <div className="form-group">
-                <label>Enquiry Type</label>
-                <select>
+                <label htmlFor="gms-contact-enquiry">Enquiry Type</label>
+                <select
+                  id="gms-contact-enquiry"
+                  name="enquiryType"
+                  value={contactForm.enquiryType}
+                  onChange={handleContactChange}
+                  required
+                >
                   <option value="">Select an option</option>
-                  <option>Admissions / Enrolment</option>
-                  <option>Academic Programmes</option>
-                  <option>Fee Information</option>
-                  <option>General Enquiry</option>
+                  <option value="admissions">Admissions / Enrolment</option>
+                  <option value="academics">Academic Programmes</option>
+                  <option value="fees">Fee Information</option>
+                  <option value="general">General Enquiry</option>
                 </select>
               </div>
               <div className="form-group">
-                <label>Message</label>
-                <textarea placeholder="Write your message here..." />
+                <label htmlFor="gms-contact-message">Message</label>
+                <textarea
+                  id="gms-contact-message"
+                  name="message"
+                  value={contactForm.message}
+                  onChange={handleContactChange}
+                  placeholder="Write your message here..."
+                />
               </div>
-              <button className="btn-submit" type="button">
-                Send Message →
+              {contactError ? <p className="contact-form-error">{contactError}</p> : null}
+              <button className="btn-submit" type="submit" disabled={contactSubmitting}>
+                {contactSubmitting ? "Opening WhatsApp..." : "Send Message →"}
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </section>

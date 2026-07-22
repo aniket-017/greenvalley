@@ -813,7 +813,7 @@ export default function Classes() {
                 <option value="7th">7th Standard</option>
                 <option value="8th">8th Standard</option>
                 <option value="9th">9th Standard</option>
-                <option value="10th">10th Standard (SSC)</option>
+                <option value="10th">10th Standard</option>
                 <option value="11th">11th Standard</option>
                 <option value="12th">12th Standard</option>
               </select>
