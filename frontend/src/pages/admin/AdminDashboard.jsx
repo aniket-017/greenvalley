@@ -554,7 +554,7 @@ export default function AdminDashboard() {
                           </div>
                         </div>
                       ) : (
-                        <>
+                        <div className="admin-teacher-row">
                           <button
                             type="button"
                             className="admin-drag-handle"
@@ -566,67 +566,71 @@ export default function AdminDashboard() {
                           >
                             ⋮⋮
                           </button>
-                          <div className="admin-teacher-left">
-                            <div className="admin-teacher-photo">
+                          <div className="admin-teacher-body">
+                            <div className="admin-teacher-main">
+                              <div className="admin-teacher-photo">
+                                {teacher.photo ? (
+                                  <img src={teacher.photo} alt={teacher.name} />
+                                ) : (
+                                  <div className="admin-teacher-photo-empty" aria-hidden />
+                                )}
+                              </div>
+                              <div className="admin-teacher-meta">
+                                <strong>{teacher.name}</strong>
+                                <span>{teacher.subject}</span>
+                              </div>
+                              <div className="admin-row-actions admin-teacher-core-actions">
+                                <button
+                                  type="button"
+                                  className="admin-btn ghost small"
+                                  onClick={() => {
+                                    setEditingTeacherId(teacher.id);
+                                    setEditingTeacher({
+                                      name: teacher.name,
+                                      subject: teacher.subject,
+                                    });
+                                  }}
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  type="button"
+                                  className="admin-btn danger small"
+                                  disabled={saving}
+                                  onClick={() => handleDeleteTeacher(teacher)}
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+                            <div className="admin-teacher-photo-actions">
+                              <label className="admin-btn ghost small admin-file-btn">
+                                {uploadingTeacherId === teacher.id ? 'Uploading…' : 'Upload photo'}
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  hidden
+                                  disabled={uploadingTeacherId === teacher.id || saving}
+                                  onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    e.target.value = '';
+                                    handleUploadPhoto(teacher.id, file);
+                                  }}
+                                />
+                              </label>
                               {teacher.photo ? (
-                                <img src={teacher.photo} alt={teacher.name} />
-                              ) : (
-                                <div className="admin-teacher-photo-empty" aria-hidden />
-                              )}
-                            </div>
-                            <div className="admin-teacher-meta">
-                              <strong>{teacher.name}</strong>
-                              <span>{teacher.subject}</span>
+                                <button
+                                  type="button"
+                                  className="admin-btn ghost small"
+                                  disabled={uploadingTeacherId === teacher.id || saving}
+                                  onClick={() => handleRemovePhoto(teacher)}
+                                >
+                                  Remove photo
+                                </button>
+                              ) : null}
                             </div>
                           </div>
-                          <div className="admin-row-actions wrap">
-                            <label className="admin-btn ghost small admin-file-btn">
-                              {uploadingTeacherId === teacher.id ? 'Uploading…' : 'Upload photo'}
-                              <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                disabled={uploadingTeacherId === teacher.id || saving}
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  e.target.value = '';
-                                  handleUploadPhoto(teacher.id, file);
-                                }}
-                              />
-                            </label>
-                            {teacher.photo ? (
-                              <button
-                                type="button"
-                                className="admin-btn ghost small"
-                                disabled={uploadingTeacherId === teacher.id || saving}
-                                onClick={() => handleRemovePhoto(teacher)}
-                              >
-                                Remove photo
-                              </button>
-                            ) : null}
-                            <button
-                              type="button"
-                              className="admin-btn ghost small"
-                              onClick={() => {
-                                setEditingTeacherId(teacher.id);
-                                setEditingTeacher({
-                                  name: teacher.name,
-                                  subject: teacher.subject,
-                                });
-                              }}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              type="button"
-                              className="admin-btn danger small"
-                              disabled={saving}
-                              onClick={() => handleDeleteTeacher(teacher)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </>
+                        </div>
                       )}
                     </li>
                   ))}

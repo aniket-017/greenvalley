@@ -303,6 +303,52 @@
 .admin-teacher-meta {
   display: grid;
   gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-teacher-meta strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-teacher-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.admin-teacher-body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.admin-teacher-main {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.admin-teacher-core-actions {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.admin-teacher-photo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-left: 64px;
+}
+
+.admin-list-item.teacher-row {
+  align-items: stretch;
 }
 
 .admin-teacher-left {
@@ -372,5 +418,18 @@
   .admin-list-item.teacher-row {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .admin-teacher-photo-actions {
+    padding-left: 0;
+  }
+
+  .admin-teacher-main {
+    flex-wrap: wrap;
+  }
+
+  .admin-teacher-core-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 }
