@@ -90,6 +90,13 @@ export function reorderSections(orderedIds) {
   });
 }
 
+export function reorderTeachers(sectionId, orderedIds) {
+  return request('/api/admin/teachers/reorder', {
+    method: 'PUT',
+    body: JSON.stringify({ sectionId, orderedIds }),
+  });
+}
+
 export function createTeacher(payload) {
   return request('/api/admin/teachers', {
     method: 'POST',

@@ -9,6 +9,7 @@ import {
   deleteTeacherPhoto,
   fetchAdminFaculty,
   reorderSections,
+  reorderTeachers,
   updateSection,
   updateTeacher,
   uploadTeacherPhoto,
@@ -32,6 +33,8 @@ export default function AdminDashboard() {
   const [uploadingTeacherId, setUploadingTeacherId] = useState(null);
   const [draggingSectionId, setDraggingSectionId] = useState(null);
   const [dragOverSectionId, setDragOverSectionId] = useState(null);
+  const [draggingTeacherId, setDraggingTeacherId] = useState(null);
+  const [dragOverTeacherId, setDragOverTeacherId] = useState(null);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
@@ -178,6 +181,72 @@ export default function AdminDashboard() {
   const handleSectionDragEnd = () => {
     setDraggingSectionId(null);
     setDragOverSectionId(null);
+  };
+
+  const persistTeacherOrder = async (nextTeachers) => {
+    if (!selectedSectionId) return;
+    const previous = sections;
+    const nextSections = sections.map((section) =>
+      section.id === selectedSectionId ? { ...section, teachers: nextTeachers } : section,
+    );
+    setSections(nextSections);
+    setSaving(true);
+    setError('');
+    try {
+      const data = await reorderTeachers(
+        selectedSectionId,
+        nextTeachers.map((teacher) => teacher.id),
+      );
+      setSections(data.sections || nextSections);
+      setMessage('Teacher order saved.');
+    } catch (err) {
+      setSections(previous);
+      setError(err.message || 'Failed to save teacher order');
+    } finally {
+      setSaving(false);
+      setDraggingTeacherId(null);
+      setDragOverTeacherId(null);
+    }
+  };
+
+  const handleTeacherDragStart = (event, teacherId) => {
+    if (editingTeacherId) return;
+    setDraggingTeacherId(teacherId);
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', teacherId);
+  };
+
+  const handleTeacherDragOver = (event, teacherId) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    if (teacherId !== dragOverTeacherId) {
+      setDragOverTeacherId(teacherId);
+    }
+  };
+
+  const handleTeacherDrop = async (event, targetTeacherId) => {
+    event.preventDefault();
+    const sourceId = draggingTeacherId || event.dataTransfer.getData('text/plain');
+    const teachers = selectedSection?.teachers || [];
+    if (!sourceId || sourceId === targetTeacherId) {
+      setDraggingTeacherId(null);
+      setDragOverTeacherId(null);
+      return;
+    }
+
+    const fromIndex = teachers.findIndex((teacher) => teacher.id === sourceId);
+    const toIndex = teachers.findIndex((teacher) => teacher.id === targetTeacherId);
+    if (fromIndex < 0 || toIndex < 0) return;
+
+    const nextTeachers = [...teachers];
+    const [moved] = nextTeachers.splice(fromIndex, 1);
+    nextTeachers.splice(toIndex, 0, moved);
+    await persistTeacherOrder(nextTeachers);
+  };
+
+  const handleTeacherDragEnd = () => {
+    setDraggingTeacherId(null);
+    setDragOverTeacherId(null);
   };
 
   const handleCreateTeacher = async (event) => {
@@ -408,7 +477,7 @@ export default function AdminDashboard() {
             {selectedSection ? (
               <>
                 <p className="admin-help">
-                  Adding to <strong>{selectedSection.title}</strong>
+                  Adding to <strong>{selectedSection.title}</strong>. Drag the handle to change teacher order.
                 </p>
 
                 <form className="admin-teacher-form" onSubmit={handleCreateTeacher}>
@@ -441,7 +510,15 @@ export default function AdminDashboard() {
 
                 <ul className="admin-list">
                   {(selectedSection.teachers || []).map((teacher) => (
-                    <li key={teacher.id} className="admin-list-item teacher-row">
+                    <li
+                      key={teacher.id}
+                      className={`admin-list-item teacher-row ${
+                        draggingTeacherId === teacher.id ? 'dragging' : ''
+                      } ${dragOverTeacherId === teacher.id ? 'drag-over' : ''}`}
+                      onDragOver={(event) => handleTeacherDragOver(event, teacher.id)}
+                      onDrop={(event) => handleTeacherDrop(event, teacher.id)}
+                      onDragEnd={handleTeacherDragEnd}
+                    >
                       {editingTeacherId === teacher.id ? (
                         <div className="admin-edit-row stacked">
                           <input
@@ -478,6 +555,17 @@ export default function AdminDashboard() {
                         </div>
                       ) : (
                         <>
+                          <button
+                            type="button"
+                            className="admin-drag-handle"
+                            draggable
+                            title="Drag to reorder"
+                            aria-label={`Drag to reorder ${teacher.name}`}
+                            onDragStart={(event) => handleTeacherDragStart(event, teacher.id)}
+                            onClick={(event) => event.preventDefault()}
+                          >
+                            ⋮⋮
+                          </button>
                           <div className="admin-teacher-left">
                             <div className="admin-teacher-photo">
                               {teacher.photo ? (

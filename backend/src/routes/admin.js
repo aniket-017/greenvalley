@@ -170,6 +170,37 @@ router.post('/teachers', async (req, res) => {
   }
 });
 
+router.put('/teachers/reorder', async (req, res) => {
+  try {
+    const sectionId = (req.body?.sectionId || '').trim();
+    const orderedIds = Array.isArray(req.body?.orderedIds) ? req.body.orderedIds.map(String) : [];
+
+    if (!sectionId || !orderedIds.length) {
+      return res.status(400).json({ error: 'sectionId and orderedIds are required' });
+    }
+
+    const section = await Section.findById(sectionId);
+    if (!section) {
+      return res.status(404).json({ error: 'Section not found' });
+    }
+
+    const teachers = await Teacher.find({ _id: { $in: orderedIds }, sectionId });
+    if (teachers.length !== orderedIds.length) {
+      return res.status(400).json({ error: 'One or more teacher ids are invalid for this section' });
+    }
+
+    await Promise.all(
+      orderedIds.map((id, index) => Teacher.updateOne({ _id: id }, { $set: { sortOrder: index } })),
+    );
+
+    const updated = await getFacultyTree();
+    return res.json({ sections: updated });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Failed to reorder teachers' });
+  }
+});
+
 router.put('/teachers/:id', async (req, res) => {
   try {
     const teacher = await Teacher.findById(req.params.id);
