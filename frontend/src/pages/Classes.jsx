@@ -128,6 +128,7 @@ export default function Classes() {
   const [inquiryForm, setInquiryForm] = useState(initialInquiryForm);
   const [inquiryError, setInquiryError] = useState("");
   const [inquirySubmitting, setInquirySubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const results = activeTab === "state" ? stateResults : cbseResults;
 
@@ -188,6 +189,23 @@ export default function Classes() {
     setCarouselIndex(0);
   }, [activeTab]);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
   const handlePrev = () => {
     const container = yearGridRef.current;
     if (!container) return;
@@ -208,6 +226,22 @@ export default function Classes() {
     const { name, value } = event.target;
     setInquiryForm((current) => ({ ...current, [name]: value }));
     if (inquiryError) setInquiryError("");
+  };
+
+  const handleNavClick = (event) => {
+    const href = event.currentTarget.getAttribute("href");
+    if (!href || !href.startsWith("#")) {
+      setMobileMenuOpen(false);
+      return;
+    }
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    event.preventDefault();
+    setMobileMenuOpen(false);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", href);
   };
 
   const handleInquirySubmit = (event) => {
@@ -237,8 +271,8 @@ export default function Classes() {
 
   return (
     <div className="classes-page">
-      <nav className="etc-nav">
-        <a href="#hero" className="logo">
+      <nav className={`etc-nav ${mobileMenuOpen ? "nav-open" : ""}`}>
+        <a href="#hero" className="logo" onClick={handleNavClick}>
           <img
             src={etc}
             alt="Expert Tutorial Center Logo"
@@ -256,32 +290,71 @@ export default function Classes() {
             <span>Est. 2011 - Chhatrapati Sambhajinagar</span>
           </div>
         </a>
-        <ul className="nav-links">
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="classes-nav-links"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <ul className="nav-links" id="classes-nav-links">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+              Home
+            </Link>
           </li>
           <li>
-            <a href="#about">About</a>
+            <a href="#about" onClick={handleNavClick}>
+              About
+            </a>
           </li>
           <li>
-            <a href="#facilities">Facilities</a>
+            <a href="#facilities" onClick={handleNavClick}>
+              Facilities
+            </a>
           </li>
           <li>
-            <a href="#teachers">Teachers</a>
+            <a href="#teachers" onClick={handleNavClick}>
+              Teachers
+            </a>
           </li>
           <li>
-            <a href="#results">Results</a>
+            <a href="#results" onClick={handleNavClick}>
+              Results
+            </a>
           </li>
           <li>
-            <a href="#courses">Courses</a>
+            <a href="#courses" onClick={handleNavClick}>
+              Courses
+            </a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="#contact" onClick={handleNavClick}>
+              Contact
+            </a>
+          </li>
+          <li className="nav-mobile-cta">
+            <a href="#contact" className="classes-nav-cta" onClick={handleNavClick}>
+              Enroll Now
+            </a>
           </li>
         </ul>
-        <a href="#contact" className="classes-nav-cta">
+        <a href="#contact" className="classes-nav-cta classes-nav-cta-desktop" onClick={handleNavClick}>
           Enroll Now
         </a>
+        {mobileMenuOpen ? (
+          <button
+            type="button"
+            className="nav-backdrop"
+            aria-label="Close navigation menu"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        ) : null}
       </nav>
 
       <section id="hero">
